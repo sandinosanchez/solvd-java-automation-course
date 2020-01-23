@@ -4,7 +4,7 @@ import static org.testng.Assert.assertEquals;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import webtesting.AbstractUiTest;
-import webtesting.dao.AnonymousUser;
+import webtesting.dao.AnonymousUserDao;
 import webtesting.pages.HomePage;
 import webtesting.pages.LoginPage;
 import webtesting.utils.CsvUtils;
@@ -26,7 +26,7 @@ public class UserRegister extends AbstractUiTest {
         int index = 0;
         Object[] result = new Object[rawData.size()];
         for (Map<String, String> record: rawData) {
-            AnonymousUser user = new AnonymousUser();
+            AnonymousUserDao user = new AnonymousUserDao();
             user.setFirstName(record.get("firstName"));
             user.setLastName(record.get("lastName"));
             user.setPassword(record.get("password"));
@@ -47,7 +47,7 @@ public class UserRegister extends AbstractUiTest {
     }
 
     @Test(dataProvider = "AnonymousUsers")
-    public void registerAccount(AnonymousUser user) throws InterruptedException {
+    public void registerAccount(AnonymousUserDao user) throws InterruptedException {
         HomePage homePage = new LoginPage(getDriver())
                 .register("jokokoj@gmail.com").register(user);
 

@@ -1,5 +1,7 @@
 package webtesting.utils;
 
+import org.testng.log4testng.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -7,6 +9,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class CsvUtils {
+    private static final Logger LOGGER = Logger.getLogger(CsvUtils.class);
 
     public static List<Map<String, String>> getData(String filePath) {
         List<Map<String, String>> data = new ArrayList<>();
@@ -18,7 +21,6 @@ public class CsvUtils {
             while (Objects.nonNull(line)) {
                 String[] values = line.split(";");
                 Map<String, String> record = new HashMap<>();
-                //Arrays.stream(values).forEach(l -> record.put(titles[1], l));
                 for (int i = 0; i < values.length; i++) {
                     record.put(titles[i], values[i]);
                 }
@@ -26,7 +28,7 @@ public class CsvUtils {
                 line = br.readLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info(e.getMessage());
         }
         return data;
     }

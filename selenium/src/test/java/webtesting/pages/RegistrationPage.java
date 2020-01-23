@@ -4,10 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import webtesting.dao.AnonymousUser;
+import webtesting.dao.AnonymousUserDao;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static webtesting.utils.SeleniumUtils.waitUntilVisibilityOfElement;
 
@@ -76,7 +75,7 @@ public class RegistrationPage extends AbstractPage {
         return new Select(element);
     }
 
-    private  Map<String, WebElement> initializeMapOfElements(AnonymousUser user) {
+    private  Map<String, WebElement> initializeMapOfElements(AnonymousUserDao user) {
         return new HashMap<String, WebElement>(){{
             put(user.getFirstName(), firstName);
             put(user.getLastName(), lastName);
@@ -89,21 +88,21 @@ public class RegistrationPage extends AbstractPage {
         }};
     }
 
-    private Map<String, Select> initializeMapOfSelectByValue(AnonymousUser user) {
+    private Map<String, Select> initializeMapOfSelectByValue(AnonymousUserDao user) {
         return new HashMap<String, Select>(){{
             put(user.getDays(), new Select(days));
             put(user.getYears(), new Select(years));
         }};
     }
 
-    private Map<String, Select> initializeMapOfSelectByVisibleText(AnonymousUser user) {
+    private Map<String, Select> initializeMapOfSelectByVisibleText(AnonymousUserDao user) {
         return new HashMap<String, Select>(){{
             put(user.getMonths(), new Select(months));
             put(user.getCountry(), new Select(country));
         }};
     }
 
-    private void loadData(AnonymousUser user) {
+    private void loadData(AnonymousUserDao user) {
         Map<String, WebElement> elements = initializeMapOfElements(user);
         Map<String, Select> selectByValue = initializeMapOfSelectByValue(user);
         Map<String, Select> selectByVisibleText = initializeMapOfSelectByVisibleText(user);
@@ -116,7 +115,7 @@ public class RegistrationPage extends AbstractPage {
     }
 
 
-    public HomePage register(AnonymousUser user) {
+    public HomePage register(AnonymousUserDao user) {
         waitUntilVisibilityOfElement(driver, gender);
         loadData(user);
         submit.click();

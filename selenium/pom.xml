@@ -15,7 +15,7 @@
         <rest-assured.version>3.3.0</rest-assured.version>
         <selenium.version>3.14.0</selenium.version>
         <web-driver-manager.version>3.8.1</web-driver-manager.version>
-        <opencsv.version>5.0</opencsv.version>
+        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <dependencies>
@@ -47,10 +47,11 @@
         </dependency>
 
         <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>${opencsv.version}</version>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
+
 
     </dependencies>
     

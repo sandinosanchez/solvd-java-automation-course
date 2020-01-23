@@ -1,6 +1,6 @@
 package webtesting.dao;
 
-public class AnonymousUser {
+public class AnonymousUserDao {
 
     private String firstName;
     private String lastName;
@@ -17,11 +17,11 @@ public class AnonymousUser {
     private String phoneMobile;
     private String alias;
 
-    public AnonymousUser(){}
+    public AnonymousUserDao(){}
 
-    public AnonymousUser(String firstName, String lastName, String email, String password, String days, String months,
-                         String years, String address, String city, String state, String zipCode, String country,
-                         String phoneMobile, String alias) {
+    public AnonymousUserDao(String firstName, String lastName, String email, String password, String days, String months,
+                            String years, String address, String city, String state, String zipCode, String country,
+                            String phoneMobile, String alias) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

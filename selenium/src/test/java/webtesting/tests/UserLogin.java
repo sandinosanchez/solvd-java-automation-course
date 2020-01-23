@@ -7,7 +7,7 @@ import webtesting.pages.HomePage;
 import webtesting.pages.BrowseProductsPage;
 import webtesting.pages.LoginPage;
 
-public class AutomationPracticeLoginTest extends AbstractUiTest {
+public class UserLogin extends AbstractUiTest {
 
     @Override
     protected String getBaseUrl() {
