@@ -8,14 +8,30 @@
     <artifactId>selenium</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>./suites/${suiteFile}.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <properties>
-        <maven.compiler.source>1.9</maven.compiler.source>
-        <maven.compiler.target>1.9</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <test-ng.version>6.14.3</test-ng.version>
         <rest-assured.version>3.3.0</rest-assured.version>
         <selenium.version>3.14.0</selenium.version>
         <web-driver-manager.version>3.8.1</web-driver-manager.version>
         <log4j.version>1.2.17</log4j.version>
+        <suiteFile>multiples-browsers</suiteFile>
     </properties>
 
     <dependencies>

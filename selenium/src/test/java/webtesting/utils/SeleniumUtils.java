@@ -4,9 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Iterator;
-import java.util.Set;
-
 public class SeleniumUtils {
 
     public static boolean waitUntilVisibilityOfElement(WebDriver driver, WebElement element) {

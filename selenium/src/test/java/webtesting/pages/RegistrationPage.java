@@ -66,7 +66,6 @@ public class RegistrationPage extends AbstractPage {
     @FindBy(id = "submitAccount")
     private WebElement submit;
 
-
     public RegistrationPage(WebDriver driver) {
         super(driver);
     }
@@ -113,7 +112,6 @@ public class RegistrationPage extends AbstractPage {
 
         gender.click();
     }
-
 
     public HomePage register(AnonymousUserDao user) {
         waitUntilVisibilityOfElement(driver, gender);

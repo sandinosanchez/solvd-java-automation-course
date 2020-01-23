@@ -4,10 +4,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+import webtesting.enums.Driver;
 
 import java.util.Objects;
 
@@ -15,11 +16,9 @@ public abstract class AbstractUiTest {
     private WebDriver driver;
 
     @BeforeMethod
-    public void initializeBrowser() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        driver = new ChromeDriver(options);
+    @Parameters(value = "browser")
+    public void initializeBrowser(@Optional(value = "CHROME") String browser) {
+        driver = Driver.valueOf(browser).build();
         driver.get(getBaseUrl());
     }
 

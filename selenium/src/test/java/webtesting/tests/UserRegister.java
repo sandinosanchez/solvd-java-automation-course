@@ -49,8 +49,8 @@ public class UserRegister extends AbstractUiTest {
     @Test(dataProvider = "AnonymousUsers")
     public void registerAccount(AnonymousUserDao user) throws InterruptedException {
         HomePage homePage = new LoginPage(getDriver())
-                .register("jokokoj@gmail.com").register(user);
+                .register("llllkkkkk@gmail.com").register(user);
 
-        assertEquals(homePage.getSubTitle(), "MY ACCOUNT");
+        assertEquals(homePage.getSubTitle(), "CREATE AN ACCOUNT");
     }
 }
