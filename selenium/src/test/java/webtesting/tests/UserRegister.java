@@ -1,20 +1,19 @@
 package webtesting.tests;
 
+import static org.testng.Assert.assertEquals;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import webtesting.AbstractUiTest;
 import webtesting.dao.AnonymousUser;
-import webtesting.pages.AutomationPracticeLoginPage;
-import webtesting.pages.AutomationPracticeRegistrationPage;
+import webtesting.pages.HomePage;
+import webtesting.pages.LoginPage;
 import webtesting.utils.CsvUtils;
 
 import java.util.List;
 import java.util.Map;
 
-import static webtesting.utils.CsvUtils.getData;
 
-
-public class La extends AbstractUiTest {
+public class UserRegister extends AbstractUiTest {
 
     @Override
     protected String getBaseUrl() {
@@ -23,7 +22,7 @@ public class La extends AbstractUiTest {
 
     @DataProvider(name = "AnonymousUsers")
     public Object[] AnonymousUsers() {
-        List<Map<String, String>> rawData = CsvUtils.getData("clientes.csv");
+        List<Map<String, String>> rawData = CsvUtils.getData("user-info.csv");
         int index = 0;
         Object[] result = new Object[rawData.size()];
         for (Map<String, String> record: rawData) {
@@ -48,9 +47,10 @@ public class La extends AbstractUiTest {
     }
 
     @Test(dataProvider = "AnonymousUsers")
-    public void t(AnonymousUser user) throws InterruptedException {
-        AutomationPracticeRegistrationPage register = new AutomationPracticeLoginPage(getDriver())
-                .register("sadll@gmail.com");
-        register.register(user);
+    public void registerAccount(AnonymousUser user) throws InterruptedException {
+        HomePage homePage = new LoginPage(getDriver())
+                .register("jokokoj@gmail.com").register(user);
+
+        assertEquals(homePage.getSubTitle(), "MY ACCOUNT");
     }
 }

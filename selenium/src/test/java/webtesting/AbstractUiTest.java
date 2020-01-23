@@ -3,6 +3,7 @@ package webtesting;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -13,10 +14,12 @@ import java.util.Objects;
 public abstract class AbstractUiTest {
     private WebDriver driver;
 
-    @BeforeClass
+    @BeforeMethod
     public void initializeBrowser() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(true);
+        driver = new ChromeDriver(options);
         driver.get(getBaseUrl());
     }
 

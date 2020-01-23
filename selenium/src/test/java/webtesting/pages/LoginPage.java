@@ -3,8 +3,9 @@ package webtesting.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import static webtesting.utils.SeleniumUtils.waitUntilVisibilityOfElement;
 
-public class AutomationPracticeLoginPage extends AbstractPage {
+public class LoginPage extends AbstractPage {
 
     @FindBy(id = "email_create")
     private WebElement emailRegister;
@@ -21,19 +22,22 @@ public class AutomationPracticeLoginPage extends AbstractPage {
     @FindBy(id = "SubmitCreate")
     private WebElement submitRegister;
 
-    public AutomationPracticeLoginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver) {
         super(driver);
     }
 
-    public AutomationPracticeRegistrationPage register(String email) {
+    public RegistrationPage register(String email) {
+        waitUntilVisibilityOfElement(driver, emailRegister);
         emailRegister.sendKeys(email);
         submitRegister.click();
-        return new AutomationPracticeRegistrationPage(driver);
+        return new RegistrationPage(driver);
     }
 
-    public void login(String email, String password) {
+    public HomePage login(String email, String password) {
+        waitUntilVisibilityOfElement(driver, emailLogin);
         this.emailLogin.sendKeys(email);
         this.password.sendKeys(password);
         submitLogin.click();
+        return new HomePage(driver);
     }
 }
