@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Multiples browser testing" verbose="1" >
+
+    <test name="Chrome">
+        <parameter name="browser" value="CHROME" />
+        <classes>
+            <class name="webtesting.tests.UserLogin" />
+            <class name="webtesting.tests.UserRegister" />
+        </classes>
+    </test>
+
+    <test name="Firefox">
+        <parameter name="browser" value="FIREFOX" />
+        <classes>
+            <class name="webtesting.tests.UserLogin" />
+            <class name="webtesting.tests.UserRegister" />
+        </classes>
+    </test>
+
+</suite>
