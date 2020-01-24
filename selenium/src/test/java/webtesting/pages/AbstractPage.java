@@ -10,4 +10,6 @@ public class AbstractPage {
         this.driver = driver;
         initElements(driver, this);
     }
+
+    public AbstractPage(){}
 }
