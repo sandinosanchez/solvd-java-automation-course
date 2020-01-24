@@ -1,7 +1,6 @@
 package webtesting.dao;
 
 public class AnonymousUserDao {
-
     private String firstName;
     private String lastName;
     private String email;
