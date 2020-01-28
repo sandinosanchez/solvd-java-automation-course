@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.solvd.sandino-sanchez</groupId>
-    <artifactId>connection-pool</artifactId>
+    <artifactId>dbConnection-pool</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <build>
@@ -24,9 +24,17 @@
 
     <properties>
         <log4j.version>1.2.17</log4j.version>
+        <mysql-connector.version>8.0.17</mysql-connector.version>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
