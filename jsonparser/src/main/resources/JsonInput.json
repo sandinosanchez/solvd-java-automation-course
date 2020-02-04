@@ -1,0 +1,27 @@
+{
+    "firstName" : "Sandino",
+    "lastName" : "Sanchez",
+    "birthDate" : "2020-02-03T17:50:26.899",
+    "departments" : [
+        {
+            "name" : "Department A",
+            "address" : "Av. Siempre viva 227",
+            "location" : "Argentina"
+        } ,
+        {
+            "name" : "Department B",
+            "address" : "Baker Street 22B",
+            "location" : "United Kingdom"
+        }
+    ],
+    "phoneNumbers" : [
+        {
+            "name" : "Home",
+            "phoneNumber" : 3624569874
+        },
+        {
+            "name" : "Cellphone",
+            "phoneNumber" : 3625968574
+        }
+    ]
+}
