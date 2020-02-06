@@ -57,11 +57,11 @@ public class ConnectionPool {
         try {
             Properties jdbcProperties = new Properties();
             jdbcProperties.load(new FileInputStream("src/main/resources/jdbc.properties"));
-            Class.forName(jdbcProperties.getProperty("com.mysql.cj.jdbc.Driver"));
+//            Class.forName(jdbcProperties.getProperty("com.mysql.cj.jdbc.Driver"));
              return Optional.ofNullable(DriverManager.getConnection(jdbcProperties.getProperty("jdbc.conn.url"),
                      jdbcProperties.getProperty("jdbc.username"),
                      jdbcProperties.getProperty("jdbc.password")));
-        } catch (IOException | SQLException | ClassNotFoundException e) {
+        } catch (IOException | SQLException e) {
             LOGGER.info(e.getMessage());
         }
         return Optional.empty();
