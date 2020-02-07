@@ -1,4 +1,4 @@
-package webtesting.utils;
+package com.solvd.sandinosanchez.selenium.utils;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;

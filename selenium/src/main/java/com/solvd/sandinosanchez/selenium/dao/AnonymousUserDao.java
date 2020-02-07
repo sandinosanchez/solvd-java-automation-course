@@ -1,4 +1,4 @@
-package webtesting.dao;
+package com.solvd.sandinosanchez.selenium.dao;
 
 public class AnonymousUserDao {
     private String firstName;

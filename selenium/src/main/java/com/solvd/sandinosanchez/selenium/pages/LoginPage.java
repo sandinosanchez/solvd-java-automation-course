@@ -1,9 +1,9 @@
-package webtesting.pages;
+package com.solvd.sandinosanchez.selenium.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import static webtesting.utils.SeleniumUtils.waitUntilVisibilityOfElement;
+import static com.solvd.sandinosanchez.selenium.utils.SeleniumUtils.waitUntilVisibilityOfElement;
 
 public class LoginPage extends AbstractPage {
 

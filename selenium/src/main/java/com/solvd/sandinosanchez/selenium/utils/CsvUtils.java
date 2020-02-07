@@ -1,10 +1,8 @@
-package webtesting.utils;
+package com.solvd.sandinosanchez.selenium.utils;
 
-import org.testng.log4testng.Logger;
-
+import org.apache.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.IOException;
-
 import java.io.InputStreamReader;
 import java.util.*;
 
@@ -13,7 +11,7 @@ public class CsvUtils {
 
     public static List<Map<String, String>> getData(String filePath) {
         List<Map<String, String>> data = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(filePath)))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(filePath))))) {
             String line = br.readLine();
             String[] titles = line.split(";");
             line = br.readLine();

@@ -2,13 +2,11 @@ package webtesting.tests;
 
 import static org.testng.Assert.assertEquals;
 
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import webtesting.AbstractUiTest;
-import webtesting.pages.HomePage;
-import webtesting.pages.BrowseProductsPage;
-import webtesting.pages.LoginPage;
+import com.solvd.sandinosanchez.selenium.pages.HomePage;
+import com.solvd.sandinosanchez.selenium.pages.BrowseProductsPage;
+import com.solvd.sandinosanchez.selenium.pages.LoginPage;
 
 public class UserLogin extends AbstractUiTest {
 

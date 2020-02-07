@@ -4,10 +4,10 @@ import static org.testng.Assert.assertEquals;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import webtesting.AbstractUiTest;
-import webtesting.dao.AnonymousUserDao;
-import webtesting.pages.HomePage;
-import webtesting.pages.LoginPage;
-import webtesting.utils.CsvUtils;
+import com.solvd.sandinosanchez.selenium.dao.AnonymousUserDao;
+import com.solvd.sandinosanchez.selenium.pages.HomePage;
+import com.solvd.sandinosanchez.selenium.pages.LoginPage;
+import com.solvd.sandinosanchez.selenium.utils.CsvUtils;
 
 import java.util.List;
 import java.util.Map;

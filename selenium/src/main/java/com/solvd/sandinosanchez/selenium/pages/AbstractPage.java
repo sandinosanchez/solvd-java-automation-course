@@ -1,4 +1,4 @@
-package webtesting.pages;
+package com.solvd.sandinosanchez.selenium.pages;
 
 import org.openqa.selenium.WebDriver;
 import static org.openqa.selenium.support.PageFactory.initElements;
