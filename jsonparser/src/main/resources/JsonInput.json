@@ -1,27 +1,110 @@
-{
-    "firstName" : "Sandino",
-    "lastName" : "Sanchez",
-    "birthDate" : "2020-02-03T17:50:26.899",
-    "departments" : [
-        {
-            "name" : "Department A",
-            "address" : "Av. Siempre viva 227",
-            "location" : "Argentina"
-        } ,
-        {
-            "name" : "Department B",
-            "address" : "Baker Street 22B",
-            "location" : "United Kingdom"
-        }
-    ],
-    "phoneNumbers" : [
-        {
-            "name" : "Home",
-            "phoneNumber" : 3624569874
-        },
-        {
-            "name" : "Cellphone",
-            "phoneNumber" : 3625968574
-        }
-    ]
-}
+[
+    {
+        "firstName" : "Sandino",
+        "lastName" : "Sanchez",
+        "birthDate" : "2020-02-03T17:50:26.899",
+        "departments" : [
+            {
+                "name" : "Department A",
+                "address" : "Av. Siempre viva 227",
+                "location" : "Argentina"
+            } ,
+            {
+                "name" : "Department B",
+                "address" : "Baker Street 22B",
+                "location" : "United Kingdom"
+            }
+        ],
+        "phoneNumbers" : [
+            {
+                "name" : "Home",
+                "phoneNumber" : 3624569874
+            },
+            {
+                "name" : "Cellphone",
+                "phoneNumber" : 3625968574
+            }
+        ]
+    },
+    {
+        "firstName" : "Igor",
+        "lastName" : "Blokreu",
+        "birthDate" : "1987-02-03T17:50:26.899",
+        "departments" : [
+            {
+                "name" : "Department L",
+                "address" : "Av. OPP viva Java",
+                "location" : "Russia"
+            } ,
+            {
+                "name" : "Department PO",
+                "address" : "Baker Lang 22B",
+                "location" : "United Kingdom"
+            }
+        ],
+        "phoneNumbers" : [
+            {
+                "name" : "Home",
+                "phoneNumber" : 3524896588
+            },
+            {
+                "name" : "Cellphone",
+                "phoneNumber" : 4587556699
+            }
+        ]
+    },
+    {
+        "firstName" : "Broke",
+        "lastName" : "Smith",
+        "birthDate" : "1995-02-03T17:50:26.899",
+        "departments" : [
+            {
+                "name" : "Department Suite",
+                "address" : "CA 225B",
+                "location" : "United States"
+            } ,
+            {
+                "name" : "Country House",
+                "address" : "Some Address far away from city",
+                "location" : "Unknown"
+            }
+        ],
+        "phoneNumbers" : [
+            {
+                "name" : "Home",
+                "phoneNumber" : 3624569874
+            },
+            {
+                "name" : "Cellphone",
+                "phoneNumber" : 3625968574
+            }
+        ]
+    },
+    {
+        "firstName" : "Jose",
+        "lastName" : "Perez",
+        "birthDate" : "1685-02-03T17:50:26.899",
+        "departments" : [
+            {
+                "name" : "Some name",
+                "address" : "Some address",
+                "location" : "Some location"
+            } ,
+            {
+                "name" : "Department K",
+                "address" : "Brook Street 22B",
+                "location" : "United Kingdom"
+            }
+        ],
+        "phoneNumbers" : [
+            {
+                "name" : "Home",
+                "phoneNumber" : 3624569874
+            },
+            {
+                "name" : "Cellphone",
+                "phoneNumber" : 3625968574
+            }
+        ]
+    }
+]

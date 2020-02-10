@@ -1,24 +1,20 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
-import java.time.LocalDateTime;
+import java.util.List;
 
 public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class);
     public static void main(String[] args) {
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            InputStream is = new FileInputStream("src/main/resources/JsonInput.json");
-            User user = objectMapper.enable(SerializationFeature.INDENT_OUTPUT).readValue(is, User.class);
-            LOGGER.info(user.toString());
+        try (InputStream is = new FileInputStream("src/main/resources/JsonInput.json")){
+            List<User> user = mapper.readValue(is, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user);
+            LOGGER.info(indented);
         } catch (IOException e) {
             LOGGER.info(e.getMessage());
         }
