@@ -1,5 +1,7 @@
 package com.solvd.sandinosanchez.utils;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.solvd.sandinosanchez.dao.AbstractDao;
@@ -13,14 +15,12 @@ public class JsonParser {
     private static final String PATH_TO_JSON_OUTPUT = "src/main/resources/jsonOutput.json";
     private static ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
-    public static String deSerialize(Class<? extends BaseModel> classType, String pathToJson) {
-        try (InputStream inputJson = new FileInputStream(pathToJson)) {
-            List<? extends BaseModel> classList = mapper.readValue(inputJson, mapper.getTypeFactory().constructCollectionType(List.class, classType));
-            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(classList);
+    public static List<BaseModel> deSerialize(Class<? extends BaseModel> classType, String pathToJson) {
+        try {
+            List<BaseModel> bs = mapper.readValues(new File(pathToJson), classType);
         } catch (IOException e) {
-            LOGGER.info(e.getMessage());
+            e.printStackTrace();
         }
-        return null;
     }
 
     public static void serialize(List<? extends BaseModel> listToSerialize) {
