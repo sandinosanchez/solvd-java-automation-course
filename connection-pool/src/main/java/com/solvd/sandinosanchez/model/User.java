@@ -5,6 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.solvd.sandinosanchez.model.DirectMessage.initializeDirectMessage;
+import static com.solvd.sandinosanchez.model.Follower.initializeFollower;
+import static com.solvd.sandinosanchez.model.Post.initializePost;
+
 public class User extends BaseModel {
     private String firstName;
     private String lastName;
@@ -12,7 +16,7 @@ public class User extends BaseModel {
     private String password;
     private Gender gender;
     private List<Post> posts;
-    private List<User> followers;
+    private List<Follower> followers;
     private List<DirectMessage> directMessages;
 
 
@@ -23,13 +27,11 @@ public class User extends BaseModel {
         directMessages = new ArrayList<>();
     }
 
-    public User(Long id, String firstName, String lastName, String email,
-                   String password, Gender gender) {
+    public User(Long id, String firstName, String lastName, String email, Gender gender) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
         this.gender = gender;
         this.posts = new ArrayList<>();
         this.followers = new ArrayList<>();
@@ -39,17 +41,25 @@ public class User extends BaseModel {
     public static User initializeUser(ResultSet rs) throws SQLException {
         return new User(rs.getLong("id"), rs.getString("first_name"),
                 rs.getString("last_name"), rs.getString("email"),
-                rs.getString("password"), new Gender(rs.getString("name")));
+                new Gender(rs.getLong("gender_id"), rs.getString("name")));
     }
 
     public static User initializeUser(ResultSet rs, String idFieldName) throws SQLException {
         return new User(rs.getLong(idFieldName),rs.getString("first_name"),
                 rs.getString("last_name"), rs.getString("email"),
-                rs.getString("password"), new Gender(rs.getString("name")));
+                new Gender(rs.getString("name")));
     }
 
     public void addPost(Post post) {
         this.posts.add(post);
+    }
+
+    public void addDirectMessage(DirectMessage dm) {
+        this.directMessages.add(dm);
+    }
+
+    public void addFollower(Follower follower) {
+        this.followers.add(follower);
     }
 
     public String getFirstName() {
@@ -100,11 +110,11 @@ public class User extends BaseModel {
         this.posts = posts;
     }
 
-    public List<User> getFollowers() {
+    public List<Follower> getFollowers() {
         return followers;
     }
 
-    public void setFollowers(List<User> followers) {
+    public void setFollowers(List<Follower> followers) {
         this.followers = followers;
     }
 

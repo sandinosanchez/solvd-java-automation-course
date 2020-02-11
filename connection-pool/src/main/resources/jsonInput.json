@@ -3,7 +3,7 @@
   "firstName" : "Sandino",
   "lastName" : "Sanchez",
   "email" : "sandino320@gmail.com",
-  "password" : null,
+  "password" : "12345",
   "gender" : {
     "id" : 1,
     "name" : "Male"
@@ -16,7 +16,7 @@
   "firstName" : "Eduardo",
   "lastName" : "Lopez",
   "email" : "eduardo123@gmail.com",
-  "password" : null,
+  "password" : "12345",
   "gender" : {
     "id" : 1,
     "name" : "Male"
@@ -29,7 +29,7 @@
   "firstName" : "Maximiliano",
   "lastName" : "Lopez",
   "email" : "maxi_lopez@gmail.com",
-  "password" : null,
+  "password" : "maa88722",
   "gender" : {
     "id" : 1,
     "name" : "Male"
@@ -42,7 +42,7 @@
   "firstName" : "Alan",
   "lastName" : "Turing",
   "email" : "alan.turing@gmail.com",
-  "password" : null,
+  "password" : "010110011",
   "gender" : {
     "id" : 1,
     "name" : "Male"
@@ -55,7 +55,7 @@
   "firstName" : "Julieta",
   "lastName" : "Sanchez",
   "email" : "julieta_1995@gmail.com",
-  "password" : null,
+  "password" : "jul2234",
   "gender" : {
     "id" : 2,
     "name" : "Female"
@@ -68,7 +68,7 @@
   "firstName" : "Alexandra",
   "lastName" : "Grom",
   "email" : "alexandra.grom@gmail.com",
-  "password" : null,
+  "password" : "gromalexhj12",
   "gender" : {
     "id" : 2,
     "name" : "Female"
@@ -81,7 +81,7 @@
   "firstName" : "Agustina",
   "lastName" : "Fabrz",
   "email" : "agustina.fabrz@gmail.com",
-  "password" : null,
+  "password" : "fabrzjj88",
   "gender" : {
     "id" : 2,
     "name" : "Female"

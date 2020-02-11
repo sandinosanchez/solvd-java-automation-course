@@ -13,4 +13,6 @@ public interface IDirectMessageDao extends IQuery<DirectMessage> {
     DirectMessage getDirectMessageFrom(User user);
 
     DirectMessage getDirectMessagesBetween(Date begin, Date end);
+
+    List<DirectMessage> getAllByUserId(long id);
 }

@@ -18,8 +18,7 @@ public class Photo extends BaseModel {
     }
 
     public static Photo initializePhoto(ResultSet rs) throws SQLException {
-        return new Photo(rs.getLong("id"),
-                rs.getString("file_url"));
+        return new Photo();
     }
 
     public String getUrl() {

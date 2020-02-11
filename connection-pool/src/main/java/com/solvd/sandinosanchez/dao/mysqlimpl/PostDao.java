@@ -1,13 +1,12 @@
 package com.solvd.sandinosanchez.dao.mysqlimpl;
 
+import static com.solvd.sandinosanchez.model.Post.initializePost;
 import com.solvd.sandinosanchez.utils.ClosableEntity;
 import com.solvd.sandinosanchez.connectionpool.ConnectionPool;
 import com.solvd.sandinosanchez.dao.AbstractDao;
 import com.solvd.sandinosanchez.dao.interfaces.IPostDao;
 import com.solvd.sandinosanchez.model.Post;
 import org.apache.log4j.Logger;
-import static com.solvd.sandinosanchez.model.Post.initializePost;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,6 +26,7 @@ public class PostDao extends AbstractDao implements IPostDao {
     private static final String DELETE_BY_ID = "DELETE FROM Posts WHERE id = ?";
     private static final String GET_ALL_POSTS = "SELECT * FROM (Posts pt LEFT JOIN Users u ON pt.user_id = u.id)" +
             "LEFT JOIN Photos ph on pt.id = ph.post_id";
+    private static final String GET_ALL_POSTS_BY_USER_ID = "SELECT * FROM Posts p INNER JOIN Users u WHERE u.id = ?";
 
     @Override
     public Post getMostLikedPostById(long id) {
@@ -45,11 +45,8 @@ public class PostDao extends AbstractDao implements IPostDao {
     public Post getMostLikedPostByFirstName(String firstName) {
         try (ClosableEntity ce = new ClosableEntity(ConnectionPool.getInstance().getConnection())) {
             ResultSet rs = ce.executeQuery(GET_MOST_LIKED_POST_BY_FIRST_NAME, firstName);
-            if (rs.next()){
-                return Post.initializePost(rs);
-            } else {
-                throw new SQLException("Not found");
-            }
+            if (rs.next()) return Post.initializePost(rs);
+                 else throw new SQLException("Not found");
         } catch (SQLException e) {
             LOGGER.info(e.getMessage());
         }
@@ -58,6 +55,19 @@ public class PostDao extends AbstractDao implements IPostDao {
 
     @Override
     public Post getMostCommentedPost() {
+        return null;
+    }
+
+    @Override
+    public List<Post> getAllByUserId(long id) {
+        try (ClosableEntity ce = new ClosableEntity(ConnectionPool.getInstance().getConnection())) {
+            ResultSet rs = ce.executeQuery(GET_ALL_POSTS_BY_USER_ID, id);
+            List<Post> postsByUserId = new ArrayList<>();
+            while(rs.next()) postsByUserId.add(initializePost(rs));
+            return postsByUserId;
+        } catch (SQLException e) {
+            LOGGER.info(e.getMessage());
+        }
         return null;
     }
 

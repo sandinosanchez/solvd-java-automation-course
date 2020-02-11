@@ -3,6 +3,8 @@ package com.solvd.sandinosanchez.model;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Post extends BaseModel {
     private Date dateCreated;
@@ -12,12 +14,10 @@ public class Post extends BaseModel {
 
     public Post() {}
 
-    public Post(long id, Date dateCreated, String description, User user, Photo photo) {
+    public Post(long id, Date dateCreated, String description) {
         super(id);
         this.dateCreated = dateCreated;
-        this.user = user;
         this.description = description;
-        this.photo = photo;
     }
 
     public Post(long id, Date date_created, String description, Photo photo) {
@@ -30,10 +30,14 @@ public class Post extends BaseModel {
     public static Post initializePost(ResultSet rs) throws SQLException {
         return new Post(rs.getLong("id"),
                 rs.getDate("date_created"),
-                rs.getString("description"),
-                User.initializeUser(rs, "user_id"),
-                Photo.initializePhoto(rs));
+                rs.getString("description"));
     }
+
+//    public static List<Post> initializePosts(ResultSet rs) throws SQLException {
+//        List<Post> posts = new ArrayList<>();
+//        while (rs.next()) posts.add(initializePost(rs));
+//        return posts;
+//    }
 
     public Date getDateCreated() {
         return dateCreated;

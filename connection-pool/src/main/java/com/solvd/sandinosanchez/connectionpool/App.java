@@ -18,11 +18,11 @@ public class App implements Runnable {
 
     @Override
     public void run() {
-//        serialize((new UserDao().getAll()));
+        serialize((new UserDao().getAll()));
 //        User user = new UserDao().getById(1);
 //        LOGGER.info(user.toString());
-        List<BaseModel> users = deSerialize(User.class);
-        Objects.requireNonNull(users).forEach(u -> System.out.println(u.toString()));
+//        List<BaseModel> users = deSerialize(User.class);
+//        Objects.requireNonNull(users).forEach(u -> System.out.println(u.toString()));
     }
 
     public static void addQuery(String query) {

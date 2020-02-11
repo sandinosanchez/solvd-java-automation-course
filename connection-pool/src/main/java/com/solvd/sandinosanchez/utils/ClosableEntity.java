@@ -8,7 +8,6 @@ import java.util.Objects;
 
 public class ClosableEntity implements AutoCloseable {
     private static final Logger LOGGER = Logger.getLogger(ClosableEntity.class);
-//    private static ClosableEntity closableEntity;
     private Connection connection;
     private ResultSet resultSet;
     private PreparedStatement statement;
@@ -16,10 +15,6 @@ public class ClosableEntity implements AutoCloseable {
     public ClosableEntity(Connection connection) {
         this.connection = connection;
     }
-
-//    public synchronized ClosableEntity getInstance() {
-//        return Objects.nonNull(closableEntity) ? closableEntity : new ClosableEntity()
-//    }
 
     public ResultSet executeQuery(String query) {
         try {
@@ -62,6 +57,7 @@ public class ClosableEntity implements AutoCloseable {
         try {
             statement = connection.prepareStatement(query);
             statement.setLong(1, id);
+            LOGGER.info("Executing query: " + query);
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
             LOGGER.info(e.getMessage());

@@ -1,19 +1,22 @@
 package com.solvd.sandinosanchez.dao.mysqlimpl;
 
-import com.solvd.sandinosanchez.model.BaseModel;
+import com.solvd.sandinosanchez.model.*;
 import com.solvd.sandinosanchez.utils.ClosableEntity;
 import com.solvd.sandinosanchez.connectionpool.ConnectionPool;
 import com.solvd.sandinosanchez.dao.AbstractDao;
 import com.solvd.sandinosanchez.dao.interfaces.IUserDao;
-import com.solvd.sandinosanchez.model.User;
 import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.*;
+
+import static com.solvd.sandinosanchez.model.DirectMessage.initializeDirectMessage;
+import static com.solvd.sandinosanchez.model.Follower.initializeFollower;
+import static com.solvd.sandinosanchez.model.Post.initializePost;
 import static com.solvd.sandinosanchez.model.User.initializeUser;
 
 public class UserDao extends AbstractDao implements IUserDao {
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
-    private static final String GET_ALL_USERS = "SELECT * FROM Users u LEFT JOIN Genders g ON u.gender_id = g.id;";
+    private static final String GET_ALL_USERS = "SELECT * FROM Users u LEFT JOIN Genders g ON u.gender_id = g.id";
     private static final String GET_USER_BY_ID = "SELECT * FROM (Users u LEFT JOIN Posts p ON u.id = p.user_id) " +
             "LEFT JOIN Genders g on u.gender_id = g.id WHERE u.id = ?";
 

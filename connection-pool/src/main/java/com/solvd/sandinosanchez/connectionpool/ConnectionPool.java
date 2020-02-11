@@ -44,10 +44,9 @@ public class ConnectionPool {
         connectionPool.put(connection);
     }
 
-
     public Connection getConnection() {
         try {
-            if (getActiveConnections() < POOL_SIZE) {
+            if (getActiveConnections() <= POOL_SIZE) {
                 connectionPool.put(getConnectionFromPropertyFile().orElseThrow(SQLException::new));
                 incrementActiveConnections();
             }
@@ -74,7 +73,6 @@ public class ConnectionPool {
     public void closeAllConnections() {
     }
 
-
     public static int getActiveConnections() {
         return activeConnections;
     }
@@ -87,9 +85,7 @@ public class ConnectionPool {
         activeConnections++;
     }
 
-
     public int getPOOL_SIZE() {
         return POOL_SIZE;
     }
-
 }
