@@ -1,14 +1,12 @@
 package dao.mysqlimpl;
 
-import ConnectionUtils.ClosableEntity;
+import connectionutils.ClosableEntity;
 import connectionpool.ConnectionPool;
 import dao.AbstractDao;
 import dao.interfaces.IUserDao;
-import model.Post;
 import model.User;
 import org.apache.log4j.Logger;
 import java.sql.*;
-import java.sql.Date;
 import java.util.*;
 import static model.User.initializeUser;
 

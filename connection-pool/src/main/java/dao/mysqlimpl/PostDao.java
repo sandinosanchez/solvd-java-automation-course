@@ -1,6 +1,6 @@
 package dao.mysqlimpl;
 
-import ConnectionUtils.ClosableEntity;
+import connectionutils.ClosableEntity;
 import connectionpool.ConnectionPool;
 import dao.AbstractDao;
 import dao.interfaces.IPostDao;

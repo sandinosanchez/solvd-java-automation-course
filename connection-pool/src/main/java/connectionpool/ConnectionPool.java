@@ -11,11 +11,13 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.function.Consumer;
 
 public class ConnectionPool {
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
     private static ConnectionPool singletonConnectionPool;
     private final int POOL_SIZE = 10;
+    private static int activeConnections;
     private LinkedBlockingQueue<Connection> connectionPool;
 
     private ConnectionPool () {
@@ -24,6 +26,7 @@ public class ConnectionPool {
 
     private static ConnectionPool createConnectionPool() {
         singletonConnectionPool = new ConnectionPool();
+        setActiveConnections(0);
         return singletonConnectionPool;
     }
 
@@ -38,14 +41,17 @@ public class ConnectionPool {
                 '}';
     }
 
-    public void releaseConnection(Connection dbConnection) throws InterruptedException {
-        connectionPool.put(dbConnection);
+    public void releaseConnection(Connection connection) throws InterruptedException {
+        connectionPool.put(connection);
     }
 
 
     public Connection getConnection() {
         try {
-            connectionPool.put(readPropertiesFile().orElseThrow(SQLException::new));
+            if (getActiveConnections() < POOL_SIZE) {
+                connectionPool.put(getConnectionFromPropertyFile().orElseThrow(SQLException::new));
+                incrementActiveConnections();
+            }
             return connectionPool.take();
         } catch (InterruptedException | SQLException e) {
             LOGGER.info(e.getMessage());
@@ -53,11 +59,10 @@ public class ConnectionPool {
         return null;
     }
 
-    private static Optional<Connection> readPropertiesFile() {
+    private static Optional<Connection> getConnectionFromPropertyFile() {
         try {
             Properties jdbcProperties = new Properties();
             jdbcProperties.load(new FileInputStream("src/main/resources/jdbc.properties"));
-//            Class.forName(jdbcProperties.getProperty("com.mysql.cj.jdbc.Driver"));
              return Optional.ofNullable(DriverManager.getConnection(jdbcProperties.getProperty("jdbc.conn.url"),
                      jdbcProperties.getProperty("jdbc.username"),
                      jdbcProperties.getProperty("jdbc.password")));
@@ -69,6 +74,20 @@ public class ConnectionPool {
 
     public void closeAllConnections() {
     }
+
+
+    public static int getActiveConnections() {
+        return activeConnections;
+    }
+
+    public static void setActiveConnections(int activeConnections) {
+        ConnectionPool.activeConnections = activeConnections;
+    }
+
+    public static void incrementActiveConnections() {
+        activeConnections++;
+    }
+
 
     public int getPOOL_SIZE() {
         return POOL_SIZE;

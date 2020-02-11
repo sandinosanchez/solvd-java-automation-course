@@ -1,4 +1,4 @@
-package ConnectionUtils;
+package connectionutils;
 
 import connectionpool.ConnectionPool;
 import org.apache.log4j.Logger;
@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class ClosableEntity implements AutoCloseable {
     private static final Logger LOGGER = Logger.getLogger(ClosableEntity.class);
-
+//    private static ClosableEntity closableEntity;
     private Connection connection;
     private ResultSet resultSet;
     private PreparedStatement statement;
@@ -16,6 +16,10 @@ public class ClosableEntity implements AutoCloseable {
     public ClosableEntity(Connection connection) {
         this.connection = connection;
     }
+
+//    public synchronized ClosableEntity getInstance() {
+//        return Objects.nonNull(closableEntity) ? closableEntity : new ClosableEntity()
+//    }
 
     public ResultSet executeQuery(String query) {
         try {
@@ -71,7 +75,7 @@ public class ClosableEntity implements AutoCloseable {
             if (Objects.nonNull(statement))
                 statement.close();
             ConnectionPool.getInstance().releaseConnection(connection);
-            resultSet.close();
+            LOGGER.info("Closing resources");
         } catch (SQLException | InterruptedException e) {
             LOGGER.info(e.getMessage());
         }
