@@ -13,14 +13,16 @@ import java.util.List;
 public class JsonParser {
     private static final Logger LOGGER = Logger.getLogger(JsonParser.class);
     private static final String PATH_TO_JSON_OUTPUT = "src/main/resources/jsonOutput.json";
+    private static final String PATH_TO_JSON_INPUT = "src/main/resources/jsonInput.json";
     private static ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
-    public static List<BaseModel> deSerialize(Class<? extends BaseModel> classType, String pathToJson) {
-        try {
-            List<BaseModel> bs = mapper.readValues(new File(pathToJson), classType);
+    public static List<BaseModel> deSerialize(Class<? extends BaseModel> classType) {
+        try (InputStream is = new FileInputStream(PATH_TO_JSON_INPUT)){
+            return mapper.readValue(is, mapper.getTypeFactory().constructCollectionType(List.class, classType));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info(e.getMessage());
         }
+        return null;
     }
 
     public static void serialize(List<? extends BaseModel> listToSerialize) {

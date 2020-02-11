@@ -7,6 +7,9 @@ import java.sql.Statement;
 import java.util.List;
 
 public class Like extends BaseModel implements ILikeDao {
+
+    public Like(){}
+
     @Override
     public Like getById(long id) {
         return null;

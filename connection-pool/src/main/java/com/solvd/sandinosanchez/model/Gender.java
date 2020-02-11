@@ -3,6 +3,8 @@ package com.solvd.sandinosanchez.model;
 public class Gender extends BaseModel {
     private String name;
 
+    public Gender(){}
+
     public Gender(String name) {
         this.name = name;
     }

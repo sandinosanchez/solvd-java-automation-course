@@ -15,6 +15,7 @@ public class User extends BaseModel {
     private List<User> followers;
     private List<DirectMessage> directMessages;
 
+
     public User(){
         super();
         posts = new ArrayList<>();
