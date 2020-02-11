@@ -4,9 +4,34 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.solvd.sandino-sanchez</groupId>
+    <groupId>com.solvd.sandinosanchez</groupId>
     <artifactId>dbConnection-pool</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <log4j.version>1.2.17</log4j.version>
+        <mysql-connector.version>8.0.17</mysql-connector.version>
+        <json-parser.version>2.10.1</json-parser.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${json-parser.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -21,26 +46,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <properties>
-        <log4j.version>1.2.17</log4j.version>
-        <mysql-connector.version>8.0.17</mysql-connector.version>
-    </properties>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-    </dependencies>
-
 
 </project>

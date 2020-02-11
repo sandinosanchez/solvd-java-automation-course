@@ -1,0 +1,92 @@
+[ {
+  "id" : 1,
+  "firstName" : "Sandino",
+  "lastName" : "Sanchez",
+  "email" : "sandino320@gmail.com",
+  "password" : "12345",
+  "gender" : {
+    "id" : null,
+    "name" : "Male"
+  },
+  "posts" : [ ],
+  "followers" : [ ],
+  "directMessages" : [ ]
+}, {
+  "id" : 2,
+  "firstName" : "Eduardo",
+  "lastName" : "Lopez",
+  "email" : "eduardo123@gmail.com",
+  "password" : "12345",
+  "gender" : {
+    "id" : null,
+    "name" : "Male"
+  },
+  "posts" : [ ],
+  "followers" : [ ],
+  "directMessages" : [ ]
+}, {
+  "id" : 4,
+  "firstName" : "Maximiliano",
+  "lastName" : "Lopez",
+  "email" : "maxi_lopez@gmail.com",
+  "password" : "maa88722",
+  "gender" : {
+    "id" : null,
+    "name" : "Male"
+  },
+  "posts" : [ ],
+  "followers" : [ ],
+  "directMessages" : [ ]
+}, {
+  "id" : 5,
+  "firstName" : "Alan",
+  "lastName" : "Turing",
+  "email" : "alan.turing@gmail.com",
+  "password" : "010110011",
+  "gender" : {
+    "id" : null,
+    "name" : "Male"
+  },
+  "posts" : [ ],
+  "followers" : [ ],
+  "directMessages" : [ ]
+}, {
+  "id" : 3,
+  "firstName" : "Julieta",
+  "lastName" : "Sanchez",
+  "email" : "julieta_1995@gmail.com",
+  "password" : "jul2234",
+  "gender" : {
+    "id" : null,
+    "name" : "Female"
+  },
+  "posts" : [ ],
+  "followers" : [ ],
+  "directMessages" : [ ]
+}, {
+  "id" : 6,
+  "firstName" : "Alexandra",
+  "lastName" : "Grom",
+  "email" : "alexandra.grom@gmail.com",
+  "password" : "gromalexhj12",
+  "gender" : {
+    "id" : null,
+    "name" : "Female"
+  },
+  "posts" : [ ],
+  "followers" : [ ],
+  "directMessages" : [ ]
+}, {
+  "id" : 7,
+  "firstName" : "Agustina",
+  "lastName" : "Fabrz",
+  "email" : "agustina.fabrz@gmail.com",
+  "password" : "fabrzjj88",
+  "gender" : {
+    "id" : null,
+    "name" : "Female"
+  },
+  "posts" : [ ],
+  "followers" : [ ],
+  "directMessages" : [ ]
+} ]
