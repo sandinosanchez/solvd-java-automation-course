@@ -5,13 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.solvd.sandinosanchez</groupId>
-    <artifactId>dbConnection-pool</artifactId>
+    <artifactId>connectionpool</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <log4j.version>1.2.17</log4j.version>
         <mysql-connector.version>8.0.17</mysql-connector.version>
         <json-parser.version>2.10.1</json-parser.version>
+        <java.version>1.8</java.version>
+        <maven-compiler-plugin.version>2.5</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
@@ -25,7 +27,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector.version}</version>
         </dependency>
-
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -38,10 +39,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>

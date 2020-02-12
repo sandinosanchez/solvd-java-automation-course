@@ -6,7 +6,6 @@ CHANGE user_id2 receiver int;
 SELECT *
 FROM DirectMessages dm LEFT JOIN Users u ON u.id = dm.sender;
 
-
 SELECT *
 FROM (Posts pt LEFT JOIN Users u ON pt.user_id = u.id) LEFT JOIN Photos ph ON ph.post_id = pt.id
 
