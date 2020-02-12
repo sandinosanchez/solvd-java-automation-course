@@ -4,6 +4,7 @@ import com.solvd.sandinosanchez.connectionpool.pool.App;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Main {
@@ -17,12 +18,13 @@ public class Main {
 //            executor.execute(new App());
 //        executor.shutdown();
 
-        List<Thread> threads = new ArrayList<>();
+//        List<Thread> threads = new ArrayList<>();
+//
+//        for (int i = 0; i < 20 ; i++) {
+//            threads.add(new Thread(new App()));
+//        }
+//
+//        threads.forEach(Thread::start);
 
-        for (int i = 0; i < 20 ; i++) {
-            threads.add(new Thread(new App()));
-        }
-
-        threads.forEach(Thread::start);
     }
 }
