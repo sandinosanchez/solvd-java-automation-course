@@ -7,52 +7,51 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool {
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
-    private static ConnectionPool singletonConnectionPool;
-    private final int POOL_SIZE = 10;
-    private static int activeConnections;
+    private static final ConnectionPool CONNECTION_POOL_SINGLETON = new ConnectionPool();
+    private static final int POOL_SIZE = 9;
+    private static AtomicInteger activeConnections = new AtomicInteger(0);
+    private static ReentrantLock lock = new ReentrantLock(true);
     private LinkedBlockingQueue<Connection> connectionPool;
 
     private ConnectionPool () {
         connectionPool = new LinkedBlockingQueue<>(POOL_SIZE);
     }
 
-    private static ConnectionPool createConnectionPool() {
-        singletonConnectionPool = new ConnectionPool();
-        setActiveConnections(0);
-        return singletonConnectionPool;
-    }
-
-    public synchronized static ConnectionPool getInstance() {
-        return Objects.isNull(singletonConnectionPool) ? createConnectionPool() : singletonConnectionPool;
-    }
-
-    @Override
-    public String toString() {
-        return "com.solvd.sandinosanchez.connectionpool.ConnectionPool{" +
-                "connections=" + connectionPool.toString() +
-                '}';
+    public static ConnectionPool getInstance() {
+        return CONNECTION_POOL_SINGLETON;
     }
 
     public void releaseConnection(Connection connection) throws InterruptedException {
-        connectionPool.put(connection);
+        lock.lock();
+        try {
+            connectionPool.put(connection);
+            LOGGER.info(activeConnections.getAndDecrement());
+        } finally {
+            lock.unlock();
+        }
     }
 
     public Connection getConnection() {
+        lock.lock();
         try {
-            if (getActiveConnections() <= POOL_SIZE) {
+            if (activeConnections.get() < POOL_SIZE) {
                 connectionPool.put(getConnectionFromPropertyFile().orElseThrow(SQLException::new));
-                incrementActiveConnections();
+                activeConnections.incrementAndGet();
             }
+            LOGGER.info("Active connections " + activeConnections.get());
             return connectionPool.take();
-        } catch (InterruptedException | SQLException e) {
-            LOGGER.info(e.getMessage());
+        } catch (SQLException | InterruptedException e) {
+            LOGGER.trace(e.getStackTrace());
+        }finally {
+            lock.unlock();
         }
         return null;
     }
@@ -73,19 +72,22 @@ public class ConnectionPool {
     public void closeAllConnections() {
     }
 
-    public static int getActiveConnections() {
+    public static AtomicInteger getActiveConnections() {
         return activeConnections;
     }
 
-    public static void setActiveConnections(int activeConnections) {
+    public static void setActiveConnections(AtomicInteger activeConnections) {
         ConnectionPool.activeConnections = activeConnections;
-    }
-
-    public static void incrementActiveConnections() {
-        activeConnections++;
     }
 
     public int getPOOL_SIZE() {
         return POOL_SIZE;
+    }
+
+    @Override
+    public String toString() {
+        return "com.solvd.sandinosanchez.connectionpool.ConnectionPool{" +
+                "connections=" + connectionPool.toString() +
+                '}';
     }
 }
