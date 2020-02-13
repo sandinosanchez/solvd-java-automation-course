@@ -1,7 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.model;
 
 public abstract class BaseModel {
-    protected Long id;
+    private Long id;
 
     public BaseModel() {
     }

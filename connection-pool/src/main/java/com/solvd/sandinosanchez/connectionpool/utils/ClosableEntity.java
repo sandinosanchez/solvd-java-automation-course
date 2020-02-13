@@ -20,7 +20,7 @@ public class ClosableEntity implements AutoCloseable {
             LOGGER.info("Executing query: " + query);
             resultSet = connection.prepareStatement(query).executeQuery();
         } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return resultSet;
     }
@@ -35,7 +35,7 @@ public class ClosableEntity implements AutoCloseable {
             LOGGER.info(statement);
             return statement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return 0;
     }
@@ -47,7 +47,7 @@ public class ClosableEntity implements AutoCloseable {
             LOGGER.info(statement);
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return resultSet;
     }
@@ -59,7 +59,7 @@ public class ClosableEntity implements AutoCloseable {
             LOGGER.info("Executing query: " + query);
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return resultSet;
     }
@@ -70,9 +70,8 @@ public class ClosableEntity implements AutoCloseable {
             if (Objects.nonNull(statement))
                 statement.close();
             ConnectionPool.getInstance().releaseConnection(connection);
-            LOGGER.info("Closing resources");
         } catch (SQLException | InterruptedException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
     }
 

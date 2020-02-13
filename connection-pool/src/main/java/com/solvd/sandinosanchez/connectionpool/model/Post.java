@@ -68,7 +68,7 @@ public class Post extends BaseModel {
                 ", user=" + user +
                 ", description='" + description + '\'' +
                 ", photo=" + photo +
-                ", id=" + id +
+                ", id=" + getId() +
                 '}';
     }
 }

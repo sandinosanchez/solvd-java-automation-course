@@ -17,7 +17,7 @@ public class JsonParser {
         try (InputStream is = new FileInputStream(PATH_TO_JSON_INPUT)){
             return mapper.readValue(is, mapper.getTypeFactory().constructCollectionType(List.class, classType));
         } catch (IOException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return null;
     }
@@ -26,9 +26,7 @@ public class JsonParser {
         try(FileWriter outputJsonFile = new FileWriter(PATH_TO_JSON_OUTPUT)) {
             outputJsonFile.write(mapper.writeValueAsString(listToSerialize));
         } catch (IOException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
     }
-
-
 }

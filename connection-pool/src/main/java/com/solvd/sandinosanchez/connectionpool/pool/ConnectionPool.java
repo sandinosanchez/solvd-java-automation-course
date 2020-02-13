@@ -16,8 +16,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ConnectionPool {
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
     private static final ConnectionPool CONNECTION_POOL_SINGLETON = new ConnectionPool();
-    private static final int POOL_SIZE = 9;
-    private static AtomicInteger activeConnections = new AtomicInteger(0);
+    private static final int POOL_SIZE = 10;
+    private static AtomicInteger activeConnections = new AtomicInteger(1);
     private static ReentrantLock lock = new ReentrantLock(true);
     private LinkedBlockingQueue<Connection> connectionPool;
 
@@ -30,27 +30,20 @@ public class ConnectionPool {
     }
 
     public void releaseConnection(Connection connection) throws InterruptedException {
-        lock.lock();
-        try {
-            connectionPool.put(connection);
-            LOGGER.info(activeConnections.getAndDecrement());
-        } finally {
-            lock.unlock();
-        }
+        connectionPool.put(connection);
     }
 
     public Connection getConnection() {
         lock.lock();
         try {
-            if (activeConnections.get() < POOL_SIZE) {
+            if (activeConnections.get() <= POOL_SIZE) {
                 connectionPool.put(getConnectionFromPropertyFile().orElseThrow(SQLException::new));
                 activeConnections.incrementAndGet();
             }
-            LOGGER.info("Active connections " + activeConnections.get());
             return connectionPool.take();
         } catch (SQLException | InterruptedException e) {
-            LOGGER.info(e.getMessage());
-        }finally {
+            LOGGER.error(e);
+        } finally {
             lock.unlock();
         }
         return null;
@@ -64,7 +57,7 @@ public class ConnectionPool {
                      jdbcProperties.getProperty("jdbc.username"),
                      jdbcProperties.getProperty("jdbc.password")));
         } catch (IOException | SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return Optional.empty();
     }
@@ -82,12 +75,5 @@ public class ConnectionPool {
 
     public int getPOOL_SIZE() {
         return POOL_SIZE;
-    }
-
-    @Override
-    public String toString() {
-        return "com.solvd.sandinosanchez.connectionpool.pool.ConnectionPool{" +
-                "connections=" + connectionPool.toString() +
-                '}';
     }
 }

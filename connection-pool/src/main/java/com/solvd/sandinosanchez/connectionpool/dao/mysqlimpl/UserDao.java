@@ -9,8 +9,6 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.*;
 
-import static com.solvd.sandinosanchez.connectionpool.model.User.initializeUser;
-
 public class UserDao extends AbstractDao implements IUserDao {
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
     private static final String GET_ALL_USERS = "SELECT * FROM Users u LEFT JOIN Genders g ON u.gender_id = g.id";
@@ -30,12 +28,11 @@ public class UserDao extends AbstractDao implements IUserDao {
     @Override
     public User getById(long id) {
         try (ClosableEntity closableEntity = new ClosableEntity(ConnectionPool.getInstance().getConnection())) {
-            LOGGER.info("Executing query: " + GET_USER_BY_ID);
             ResultSet rs = closableEntity.executeQuery(GET_USER_BY_ID, id);
             if (rs.next())
                 return initializeUser(rs);
         } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return null;
     }
@@ -49,7 +46,7 @@ public class UserDao extends AbstractDao implements IUserDao {
                 users.add(initializeUser(rs));
             return users;
         } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return null;
     }
@@ -83,6 +80,18 @@ public class UserDao extends AbstractDao implements IUserDao {
     @Override
     public void deleteByName(String name) {
 
+    }
+
+    public static User initializeUser(ResultSet rs) throws SQLException {
+        return new User(rs.getLong("id"), rs.getString("first_name"),
+                rs.getString("last_name"), rs.getString("email"),
+                new Gender(rs.getLong("gender_id"), rs.getString("name")));
+    }
+
+    public static User initializeUser(ResultSet rs, String idFieldName) throws SQLException {
+        return new User(rs.getLong(idFieldName),rs.getString("first_name"),
+                rs.getString("last_name"), rs.getString("email"),
+                new Gender(rs.getString("name")));
     }
 
 }

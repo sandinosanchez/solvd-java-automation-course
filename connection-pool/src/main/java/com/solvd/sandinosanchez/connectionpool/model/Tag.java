@@ -16,11 +16,11 @@ public class Tag extends BaseModel {
     }
 
     public Long getId() {
-        return id;
+        return super.getId();
     }
 
     public void setId(Long id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public UserDao getUserTagged() {

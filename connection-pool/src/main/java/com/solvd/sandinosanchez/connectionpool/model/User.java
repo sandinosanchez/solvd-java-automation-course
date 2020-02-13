@@ -34,18 +34,6 @@ public class User extends BaseModel {
         this.directMessages = new ArrayList<>();
     }
 
-    public static User initializeUser(ResultSet rs) throws SQLException {
-        return new User(rs.getLong("id"), rs.getString("first_name"),
-                rs.getString("last_name"), rs.getString("email"),
-                new Gender(rs.getLong("gender_id"), rs.getString("name")));
-    }
-
-    public static User initializeUser(ResultSet rs, String idFieldName) throws SQLException {
-        return new User(rs.getLong(idFieldName),rs.getString("first_name"),
-                rs.getString("last_name"), rs.getString("email"),
-                new Gender(rs.getString("name")));
-    }
-
     public void addPost(Post post) {
         this.posts.add(post);
     }
@@ -133,7 +121,7 @@ public class User extends BaseModel {
                 ", posts=" + posts +
                 ", followers=" + followers +
                 ", directMessages=" + directMessages +
-                ", id=" + id +
+                ", id=" + super.getId() +
                 '}';
     }
 }
