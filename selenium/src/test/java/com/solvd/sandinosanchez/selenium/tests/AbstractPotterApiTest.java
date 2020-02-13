@@ -1,4 +1,4 @@
-package restassured.tests;
+package com.solvd.sandinosanchez.selenium.tests;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.ResponseSpecBuilder;

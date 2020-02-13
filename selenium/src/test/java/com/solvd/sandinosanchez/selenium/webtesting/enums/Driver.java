@@ -1,4 +1,4 @@
-package webtesting.enums;
+package com.solvd.sandinosanchez.selenium.webtesting.enums;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;

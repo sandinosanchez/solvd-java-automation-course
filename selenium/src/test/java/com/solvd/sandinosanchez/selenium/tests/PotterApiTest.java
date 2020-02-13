@@ -1,4 +1,4 @@
-package restassured.tests;
+package com.solvd.sandinosanchez.selenium.tests;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -6,9 +6,6 @@ import static io.restassured.RestAssured.*;
 import io.restassured.http.ContentType;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class PotterApiTest extends AbstractPotterApiTest {
 

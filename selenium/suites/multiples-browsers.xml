@@ -5,16 +5,16 @@
     <test name="Chrome">
         <parameter name="browser" value="CHROME" />
         <classes>
-            <class name="webtesting.tests.UserLogin" />
-            <class name="webtesting.tests.UserRegister" />
+            <class name="com.solvd.sandinosanchez.selenium.webtesting.tests.UserLogin" />
+            <class name="com.solvd.sandinosanchez.selenium.webtesting.tests.UserRegister" />
         </classes>
     </test>
 
     <test name="Firefox">
         <parameter name="browser" value="FIREFOX" />
         <classes>
-            <class name="webtesting.tests.UserLogin" />
-            <class name="webtesting.tests.UserRegister" />
+            <class name="com.solvd.sandinosanchez.selenium.webtesting.tests.UserLogin" />
+            <class name="com.solvd.sandinosanchez.selenium.webtesting.tests.UserRegister" />
         </classes>
     </test>
 
