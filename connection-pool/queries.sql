@@ -1,5 +1,16 @@
 use social_network;
 
+SELECT t.id, t.date_created, t.description, MAX(likes) as max_likes
+FROM (SELECT p.id, p.date_created, p.description, COUNT(*) as likes FROM Posts p LEFT JOIN Likes lk ON p.id = lk.post_id
+	  LEFT JOIN Users u ON p.user_id = u.id WHERE u.first_name = "Sandino" GROUP BY p.id) t
+GROUP BY t.id
+HAVING max_likes > 3
+
+SELECT p.id, COUNT(l.post_id) as likes_count
+FROM (Posts p LEFT JOIN Photos ph on p.id = ph.post_id) LEFT JOIN Likes l on p.id = l.post_id
+GROUP BY p.id;
+HAVING likes_count > 0
+
 ALTER TABLE DirectMessages
 CHANGE user_id2 receiver int;
 
@@ -10,12 +21,6 @@ SELECT *
 FROM (Posts pt LEFT JOIN Users u ON pt.user_id = u.id) LEFT JOIN Photos ph ON ph.post_id = pt.id
 
 SELECT * FROM Users u LEFT JOIN Genders g ON u.gender_id = g.id;
-
-SELECT t.id, t.date_created, t.description, MAX(likes) as max_likes
-FROM (SELECT p.id, p.date_created, p.description, COUNT(*) as likes FROM Posts p LEFT JOIN Likes lk ON p.id = lk.post_id
-	  LEFT JOIN Users u ON p.user_id = u.id WHERE u.first_name = "Sandino" GROUP BY p.id) t 
-GROUP BY t.id 
-ORDER BY max_likes DESC LIMIT 1;
 
 SELECT *
 FROM Posts p LEFT JOIN Likes l ON p.id = l.post_id;

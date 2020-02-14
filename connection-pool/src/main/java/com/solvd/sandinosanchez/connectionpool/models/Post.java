@@ -1,5 +1,8 @@
 package com.solvd.sandinosanchez.connectionpool.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Post extends BaseModel {
+    @JsonProperty("DateCreated")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateCreated;
     private String description;
     private Photo photo;
