@@ -25,7 +25,9 @@ public class PostDao extends AbstractDao implements IPostDao {
             ResultSet rs = ce.executeQuery(GET_ALL);
             List<Post> posts = new ArrayList<>();
             if (rs.next()) {
-                while (rs.next()) posts.add(initializePost(rs));
+                while (rs.next()) {
+                    posts.add(initializePost(rs));
+                }
                 return posts;
             } else throw new SQLException("Not found");
         } catch (SQLException e) {

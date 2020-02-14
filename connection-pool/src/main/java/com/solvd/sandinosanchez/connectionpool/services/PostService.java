@@ -1,47 +1,60 @@
 package com.solvd.sandinosanchez.connectionpool.services;
 
+import com.solvd.sandinosanchez.connectionpool.dao.*;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.CommentDao;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.LikeDao;
-import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.UserDao;
+import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.PhotoDao;
+import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.PostDao;
+import com.solvd.sandinosanchez.connectionpool.models.Photo;
 import com.solvd.sandinosanchez.connectionpool.models.Post;
 
 public class PostService {
-    private UserDao user;
-    private CommentDao comment;
-    private LikeDao like;
+    private IPostDao postDao;
+    private ICommentDao commentDao;
+    private ILikeDao likeDao;
+    private IPhotoDao photoDao;
 
     public PostService() {
-        this.user = new UserDao();
-        this.comment = new CommentDao();
-        this.like = new LikeDao();
+        this.commentDao = new CommentDao();
+        this.likeDao = new LikeDao();
+        this.postDao = new PostDao();
+        this.photoDao = new PhotoDao();
     }
 
-    public static Post initializePost() {
-        // complex query here
+    public Post getPost(long id) {
+        Post post = postDao.getById(id);
         return null;
     }
 
-    public UserDao getUser() {
-        return user;
+    public ICommentDao getCommentDao() {
+        return commentDao;
     }
 
-    public void setUser(UserDao user) {
-        this.user = user;
+    public void setCommentDao(CommentDao commentDao) {
+        this.commentDao = commentDao;
     }
 
-    public CommentDao getComment() {
-        return comment;
+    public ILikeDao getLikeDao() {
+        return likeDao;
     }
 
-    public void setComment(CommentDao comment) {
-        this.comment = comment;
+    public void setLikeDao(LikeDao likeDao) {
+        this.likeDao = likeDao;
     }
 
-    public LikeDao getLike() {
-        return like;
+    public IPostDao getPostDao() {
+        return postDao;
     }
 
-    public void setLike(LikeDao like) {
-        this.like = like;
+    public void setPostDao(IPostDao postDao) {
+        this.postDao = postDao;
+    }
+
+    public IPhotoDao getPhotoDao() {
+        return photoDao;
+    }
+
+    public void setPhotoDao(IPhotoDao photoDao) {
+        this.photoDao = photoDao;
     }
 }
