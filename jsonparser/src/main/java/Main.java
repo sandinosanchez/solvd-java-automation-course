@@ -1,22 +1,31 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-import java.io.FileInputStream;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
 public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class);
-    public static void main(String[] args) {
-        ObjectMapper mapper = new ObjectMapper();
+    public static void main(String[] args) throws  TransformerException {
+        Document doc = null;
+        String filename = "name.xml";
 
-        try (InputStream is = new FileInputStream("src/main/resources/JsonInput.json")){
-            List<User> user = mapper.readValue(is, mapper.getTypeFactory().constructCollectionType(List.class, User.class));
-            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user);
-            LOGGER.info(indented);
-        } catch (IOException e) {
-            LOGGER.info(e.getMessage());
-        }
+        Source source = new DOMSource(doc);
+
+        File file = new File(filename);
+        Result result = new StreamResult(file);
+
+        Transformer xformer = TransformerFactory.newInstance().newTransformer();
+        xformer.transform(source, result);
+
     }
 }
