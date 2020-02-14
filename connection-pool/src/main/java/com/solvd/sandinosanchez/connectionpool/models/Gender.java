@@ -1,7 +1,6 @@
 package com.solvd.sandinosanchez.connectionpool.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Gender extends BaseModel {
     @JsonProperty("Name")
     private String name;

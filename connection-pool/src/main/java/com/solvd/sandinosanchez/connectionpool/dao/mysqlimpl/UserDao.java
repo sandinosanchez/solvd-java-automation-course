@@ -79,10 +79,4 @@ public class UserDao extends AbstractDao implements IUserDao {
         return new User(rs.getLong("id"), rs.getString("first_name"),
                 rs.getString("last_name"), rs.getString("email"));
     }
-
-//    public static User initializeUser(ResultSet rs, String idFieldName) throws SQLException {
-//        return new User(rs.getLong(idFieldName),rs.getString("first_name"),
-//                rs.getString("last_name"), rs.getString("email"),
-//                new Gender(rs.getString("name")));
-//    }
 }

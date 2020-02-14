@@ -1,7 +1,6 @@
 package com.solvd.sandinosanchez.connectionpool.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ public class DirectMessage extends BaseModel {
     @JsonProperty("Receiver")
     private User receiver;
 
-    @JsonProperty("Messages")
     private List<Message> messages;
 
     public DirectMessage(){}
