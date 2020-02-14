@@ -1,18 +1,20 @@
-package com.solvd.sandinosanchez.connectionpool.model;
+package com.solvd.sandinosanchez.connectionpool.models;
 
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.PhotoDao;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.UserDao;
 
 public class Tag extends BaseModel {
     private UserDao userTagged;
-    private PhotoDao photo;
 
     public Tag(){}
 
-    public Tag(Long id, UserDao userTagged, PhotoDao photo) {
+    public Tag(Long id) {
+        super(id);
+    }
+
+    public Tag(Long id, UserDao userTagged) {
         super(id);
         this.userTagged = userTagged;
-        this.photo = photo;
     }
 
     public Long getId() {
@@ -31,11 +33,4 @@ public class Tag extends BaseModel {
         this.userTagged = userTagged;
     }
 
-    public PhotoDao getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(PhotoDao photo) {
-        this.photo = photo;
-    }
 }

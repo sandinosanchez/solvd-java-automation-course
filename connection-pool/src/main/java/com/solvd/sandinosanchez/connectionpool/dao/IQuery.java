@@ -10,15 +10,9 @@ public interface IQuery<T> {
 
     List<? extends T> getAll();
 
-    void updateByColumn(String column, String columnValue, String columnConstrain, String valueConstrain);
-
     void deleteById(long id);
 
-    void deleteByName(String name);
-
-    void updateByName(String name, AbstractDao dao);
-
-    void updateById(long id);
+    void updateById(long id, String column, String value);
 
     void insert(Statement query);
 }

@@ -1,7 +1,5 @@
-package com.solvd.sandinosanchez.connectionpool.model;
+package com.solvd.sandinosanchez.connectionpool.models;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +21,12 @@ public class User extends BaseModel {
         directMessages = new ArrayList<>();
     }
 
-    public User(Long id, String firstName, String lastName, String email, Gender gender) {
+    public User(Long id, String firstName, String lastName, String email) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.gender = gender;
+        this.gender = new Gender();
         this.posts = new ArrayList<>();
         this.followers = new ArrayList<>();
         this.directMessages = new ArrayList<>();

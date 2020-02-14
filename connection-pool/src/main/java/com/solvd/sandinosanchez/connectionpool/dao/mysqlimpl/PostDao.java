@@ -1,11 +1,10 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
-import static com.solvd.sandinosanchez.connectionpool.model.Post.initializePost;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import com.solvd.sandinosanchez.connectionpool.pool.ConnectionPool;
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
 import com.solvd.sandinosanchez.connectionpool.dao.IPostDao;
-import com.solvd.sandinosanchez.connectionpool.model.Post;
+import com.solvd.sandinosanchez.connectionpool.models.Post;
 import org.apache.log4j.Logger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,40 +14,34 @@ import java.util.List;
 
 public class PostDao extends AbstractDao implements IPostDao {
     private static final Logger LOGGER = Logger.getLogger(PostDao.class);
-    private static final String GET_MOST_LIKED_POST_BY_FIRST_NAME = "SELECT t.id, t.date_created, t.description, MAX(likes) as max_likes " +
-            "FROM (SELECT p.id, p.date_created, p.description, COUNT(*) as likes FROM Posts p LEFT JOIN Likes lk ON p.id = lk.post_id " +
-            "LEFT JOIN Users u ON p.user_id = u.id WHERE u.first_name = ? GROUP BY p.id) t GROUP BY t.id " +
-            "ORDER BY max_likes DESC LIMIT 1";
-    private static final String GET_MOST_LIKED_POST_BY_USER_ID = "SELECT t.id, t.date_created, t.description, MAX(likes) as max_likes " +
-            "FROM (SELECT p.id, p.date_created, p.description, COUNT(*) as likes FROM Posts p LEFT JOIN Likes lk ON p.id = lk.post_id " +
-            "LEFT JOIN Users u ON p.user_id = u.id WHERE u.id = ? GROUP BY p.id) t GROUP BY t.id " +
-            "ORDER BY max_likes DESC LIMIT 1";
+    private static final String GET_ALL = "SELECT * FROM Posts";
+    private static final String GET_BY_ID = "SELECT * FROM Posts WHERE id = ?";
     private static final String DELETE_BY_ID = "DELETE FROM Posts WHERE id = ?";
-    private static final String GET_ALL_POSTS = "SELECT * FROM (Posts pt LEFT JOIN Users u ON pt.user_id = u.id)" +
-            "LEFT JOIN Photos ph on pt.id = ph.post_id";
-    private static final String GET_ALL_POSTS_BY_USER_ID = "SELECT * FROM Posts p INNER JOIN Users u WHERE u.id = ?";
+    private static final String UPDATE_BY_ID = "UPDATE Posts SET ? = ? WHERE id = ?";
 
     @Override
-    public Post getMostLikedPostById(long id) {
-        try (ClosableEntity closableEntity = new ClosableEntity(ConnectionPool.getInstance().getConnection())) {
-            ResultSet rs = closableEntity.executeQuery(GET_MOST_LIKED_POST_BY_USER_ID, id);
-            if (rs.next())
-                return Post.initializePost(rs);
-            else throw new SQLException("Not found");
+    public List<Post> getAll() {
+        try (ClosableEntity ce = new ClosableEntity(ConnectionPool.getInstance().getConnection())) {
+            ResultSet rs = ce.executeQuery(GET_ALL);
+            List<Post> posts = new ArrayList<>();
+            if (rs.next()) {
+                while (rs.next()) posts.add(initializePost(rs));
+                return posts;
+            } else throw new SQLException("Not found");
         } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return null;
     }
 
     @Override
-    public Post getMostLikedPostByFirstName(String firstName) {
-        try (ClosableEntity ce = new ClosableEntity(ConnectionPool.getInstance().getConnection())) {
-            ResultSet rs = ce.executeQuery(GET_MOST_LIKED_POST_BY_FIRST_NAME, firstName);
-            if (rs.next()) return Post.initializePost(rs);
-                 else throw new SQLException("Not found");
+    public Post getById(long id) {
+        try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
+            ResultSet rs = ce.executeQuery(GET_BY_ID, id);
+            if (rs.next()) return initializePost(rs);
+            else throw new SQLException("Not found");
         } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e);
         }
         return null;
     }
@@ -59,66 +52,31 @@ public class PostDao extends AbstractDao implements IPostDao {
     }
 
     @Override
-    public List<Post> getAllByUserId(long id) {
-        try (ClosableEntity ce = new ClosableEntity(ConnectionPool.getInstance().getConnection())) {
-            ResultSet rs = ce.executeQuery(GET_ALL_POSTS_BY_USER_ID, id);
-            List<Post> postsByUserId = new ArrayList<>();
-            while(rs.next()) postsByUserId.add(initializePost(rs));
-            return postsByUserId;
-        } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
-        }
-        return null;
-    }
-
-    @Override
-    public Post getById(long id) {
-        return null;
-    }
-
-    @Override
-    public List<Post> getAll() {
-        try (ClosableEntity cs = new ClosableEntity(ConnectionPool.getInstance().getConnection())) {
-            ResultSet rs = cs.executeQuery(GET_ALL_POSTS);
-            List<Post> posts = new ArrayList<>();
-            while (rs.next())
-                posts.add(initializePost(rs));
-            return posts;
-        } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
-        }
-        return null;
-    }
-
-    @Override
-    public void updateByColumn(String column, String columnValue, String columnConstrain, String valueConstrain) {
-
-    }
-
-    @Override
     public void deleteById(long id) {
         try (ClosableEntity ce = new ClosableEntity(ConnectionPool.getInstance().getConnection())) {
             ce.executeQuery(DELETE_BY_ID, id);
+        } catch (SQLException e) {
+            LOGGER.error(e);
         }
     }
 
     @Override
-    public void deleteByName(String name) {
-
-    }
-
-    @Override
-    public void updateByName(String name, AbstractDao dao) {
-
-    }
-
-    @Override
-    public void updateById(long id) {
-
+    public void updateById(long id, String column, String value) {
+        try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
+            ce.executeUpdate(UPDATE_BY_ID, id, column, value);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
     }
 
     @Override
     public void insert(Statement query) {
 
+    }
+
+    public static Post initializePost(ResultSet rs) throws SQLException {
+        return new Post(rs.getLong("id"),
+                rs.getDate("date_created"),
+                rs.getString("description"));
     }
 }

@@ -1,14 +1,17 @@
-package com.solvd.sandinosanchez.connectionpool.model;
+package com.solvd.sandinosanchez.connectionpool.models;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Post extends BaseModel {
     private Date dateCreated;
-    private User user;
     private String description;
     private Photo photo;
+    private List<Like> likes;
+    private List<Comment> comments;
 
     public Post() {}
 
@@ -16,6 +19,7 @@ public class Post extends BaseModel {
         super(id);
         this.dateCreated = dateCreated;
         this.description = description;
+        this.likes = new ArrayList<>();
     }
 
     public Post(long id, Date date_created, String description, Photo photo) {
@@ -23,19 +27,8 @@ public class Post extends BaseModel {
         this.dateCreated = date_created;
         this.description = description;
         this.photo = photo;
+        this.comments = new ArrayList<>();
     }
-
-    public static Post initializePost(ResultSet rs) throws SQLException {
-        return new Post(rs.getLong("id"),
-                rs.getDate("date_created"),
-                rs.getString("description"));
-    }
-
-//    public static List<Post> initializePosts(ResultSet rs) throws SQLException {
-//        List<Post> posts = new ArrayList<>();
-//        while (rs.next()) posts.add(initializePost(rs));
-//        return posts;
-//    }
 
     public Date getDateCreated() {
         return dateCreated;
@@ -43,14 +36,6 @@ public class Post extends BaseModel {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getDescription() {
@@ -65,10 +50,33 @@ public class Post extends BaseModel {
     public String toString() {
         return "Post{" +
                 "dateCreated=" + dateCreated +
-                ", user=" + user +
                 ", description='" + description + '\'' +
                 ", photo=" + photo +
                 ", id=" + getId() +
                 '}';
+    }
+
+    public void addLike(Like like) {
+        this.likes.add(like);
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

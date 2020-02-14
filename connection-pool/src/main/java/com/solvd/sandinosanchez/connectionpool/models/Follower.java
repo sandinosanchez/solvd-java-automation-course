@@ -1,4 +1,4 @@
-package com.solvd.sandinosanchez.connectionpool.model;
+package com.solvd.sandinosanchez.connectionpool.models;
 
 import java.sql.Date;
 import java.sql.ResultSet;

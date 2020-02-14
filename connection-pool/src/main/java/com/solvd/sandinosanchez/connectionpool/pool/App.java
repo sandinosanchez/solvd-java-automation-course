@@ -2,7 +2,9 @@ package com.solvd.sandinosanchez.connectionpool.pool;
 
 import static com.solvd.sandinosanchez.connectionpool.utils.JsonParser.serialize;
 
+import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.PostDao;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.UserDao;
+import com.solvd.sandinosanchez.connectionpool.models.User;
 import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ public class App implements Runnable {
 
     @Override
     public void run() {
-        serialize((new UserDao().getAll()));
+        serialize((new PostDao().getAll()));
 //        User user = new UserDao().getById(1);
 //        LOGGER.info(user.toString());
 //        List<BaseModel> users = deSerialize(User.class);
