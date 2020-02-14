@@ -1,4 +1,4 @@
-package com.solvd.sandinosanchez.connectionpool.model;
+package com.solvd.sandinosanchez.connectionpool.models;
 
 public abstract class BaseModel {
     private Long id;

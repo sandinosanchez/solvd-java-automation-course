@@ -2,7 +2,7 @@ package com.solvd.sandinosanchez.connectionpool.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.solvd.sandinosanchez.connectionpool.model.BaseModel;
+import com.solvd.sandinosanchez.connectionpool.models.BaseModel;
 import org.apache.log4j.Logger;
 import java.io.*;
 import java.util.List;

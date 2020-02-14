@@ -1,4 +1,4 @@
-package com.solvd.sandinosanchez.connectionpool.model;
+package com.solvd.sandinosanchez.connectionpool.models;
 
 public class Gender extends BaseModel {
     private String name;

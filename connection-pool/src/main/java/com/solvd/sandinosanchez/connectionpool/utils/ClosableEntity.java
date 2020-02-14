@@ -15,52 +15,50 @@ public class ClosableEntity implements AutoCloseable {
         this.connection = connection;
     }
 
-    public ResultSet executeQuery(String query) {
-        try {
-            LOGGER.info("Executing query: " + query);
-            resultSet = connection.prepareStatement(query).executeQuery();
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
+    public ResultSet executeQuery(String query) throws SQLException {
+        LOGGER.info("Executing query: " + query);
+        resultSet = connection.prepareStatement(query).executeQuery();
         return resultSet;
     }
 
-    public int executeQuery(String query, String column, String value, String columnConstrain, String valueConstrain) {
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setString(1, column);
-            statement.setString(2, value);
-            statement.setString(3, columnConstrain);
-            statement.setString(4, valueConstrain);
-            LOGGER.info(statement);
-            return statement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
-        return 0;
-    }
-
-    public ResultSet executeQuery(String query, String parameter) {
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setString(1, parameter);
-            LOGGER.info(statement);
-            resultSet = statement.executeQuery();
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
+    public ResultSet executeQuery(String query, Date begin, Date end) throws SQLException {
+        statement = connection.prepareStatement(query);
+        statement.setDate(1, begin);
+        statement.setDate(2, end);
+        LOGGER.info("Executing query: " + query);
+        resultSet = statement.executeQuery();
         return resultSet;
     }
 
-    public ResultSet executeQuery(String query, long id) {
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setLong(1, id);
-            LOGGER.info("Executing query: " + query);
-            resultSet = statement.executeQuery();
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
+    public void executeUpdate(String query,  long id, String column, String value) throws SQLException {
+        statement = connection.prepareStatement(query);
+        statement.setString(1, column);
+        statement.setString(2, value);
+        statement.setLong(3, id);
+        LOGGER.info("Executing query:" + statement.toString());
+        statement.executeUpdate();
+    }
+
+    public void executeDelete(String query, long id) throws SQLException {
+        statement = connection.prepareStatement(query);
+        statement.setLong(1, id);
+        LOGGER.info("Executing query:" + statement.toString());
+        statement.executeQuery();
+    }
+
+    public ResultSet executeQuery(String query, String parameter) throws SQLException {
+        statement = connection.prepareStatement(query);
+        statement.setString(1, parameter);
+        LOGGER.info("Executing query:" + statement.toString());
+        resultSet = statement.executeQuery();
+        return resultSet;
+    }
+
+    public ResultSet executeQuery(String query, long id) throws SQLException {
+        statement = connection.prepareStatement(query);
+        statement.setLong(1, id);
+        LOGGER.info("Executing query: " + statement.toString());
+        resultSet = statement.executeQuery();
         return resultSet;
     }
 
