@@ -16,6 +16,7 @@ public class LikeDao extends AbstractDao implements ILikeDao {
     private static final Logger LOGGER = Logger.getLogger(LikeDao.class);
     private static final String GET_ALL = "SELECT * FROM Likes";
     private static final String GET_BY_ID = "SELECT * FROM Likes WHERE id = ?";
+    private static final String GET_ALL_BY_POST_ID = "SELECT * FROM Likes WHERE post_id = ?";
     private static final String DELETE_BY_ID = "DELETE FROM Likes WHERE id = ?";
     private static final String UPDATE_BY_ID = "UPDATE Likes SET ? = ? WHERE id = ?";
 
@@ -35,6 +36,21 @@ public class LikeDao extends AbstractDao implements ILikeDao {
     public List<? extends Like> getAll() {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
             ResultSet rs = ce.executeQuery(GET_ALL);
+            List<Like> likes = new ArrayList<>();
+            if (rs.next()) {
+                while (rs.next()) likes.add(initializeLike(rs));
+                return likes;
+            } else throw new SQLException("Not found");
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Like> getAllByPostId(long id) {
+        try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
+            ResultSet rs = ce.executeQuery(GET_ALL_BY_POST_ID, id);
             List<Like> likes = new ArrayList<>();
             if (rs.next()) {
                 while (rs.next()) likes.add(initializeLike(rs));

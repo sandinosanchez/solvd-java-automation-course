@@ -8,7 +8,7 @@ import java.util.List;
 public interface IQuery<T> {
     T getById(long id);
 
-    List<? extends T> getAll();
+    List<T> getAll();
 
     void deleteById(long id);
 

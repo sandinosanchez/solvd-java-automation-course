@@ -2,18 +2,23 @@ package com.solvd.sandinosanchez.connectionpool.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.solvd.sandinosanchez.connectionpool.models.BaseModel;
 import org.apache.log4j.Logger;
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
-public class JsonParser {
-    private static final Logger LOGGER = Logger.getLogger(JsonParser.class);
+public class Parsers {
+    private static final Logger LOGGER = Logger.getLogger(Parsers.class);
     private static final String PATH_TO_JSON_OUTPUT = "src/main/resources/jsonOutput.json";
     private static final String PATH_TO_JSON_INPUT = "src/main/resources/jsonInput.json";
+    private static final String PATH_TO_XML_OUTPUT = "src/main/resources/xmlOutput.xml";
     private static ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
-    public static List<BaseModel> deSerialize(Class<? extends BaseModel> classType) {
+    public static List<BaseModel> deSerializeJson(Class<? extends BaseModel> classType) {
         try (InputStream is = new FileInputStream(PATH_TO_JSON_INPUT)){
             return mapper.readValue(is, mapper.getTypeFactory().constructCollectionType(List.class, classType));
         } catch (IOException e) {
@@ -22,7 +27,7 @@ public class JsonParser {
         return null;
     }
 
-    public static void serialize(List<? extends BaseModel> listToSerialize) {
+    public static void serializeJson(List<? extends BaseModel> listToSerialize) {
         try(FileWriter outputJsonFile = new FileWriter(PATH_TO_JSON_OUTPUT)) {
             outputJsonFile.write(mapper.writeValueAsString(listToSerialize));
         } catch (IOException e) {
@@ -30,3 +35,4 @@ public class JsonParser {
         }
     }
 }
+
