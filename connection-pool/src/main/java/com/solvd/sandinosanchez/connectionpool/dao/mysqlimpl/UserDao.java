@@ -18,7 +18,7 @@ public class UserDao extends AbstractDao implements IUserDao {
     private static final String UPDATE_BY_ID = "UPDATE Tags SET ? = ? WHERE id = ?";
 
     @Override
-    public List<? extends User> getAll() {
+    public List<User> getAll() {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
             ResultSet rs = ce.executeQuery(GET_ALL);
             List<User> users = new ArrayList<>();
@@ -71,7 +71,7 @@ public class UserDao extends AbstractDao implements IUserDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 

@@ -65,7 +65,7 @@ public class GenderDao extends AbstractDao implements IGenderDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 

@@ -69,7 +69,7 @@ public class TagDao extends AbstractDao implements ITagDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 

@@ -1,19 +1,15 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
-import com.solvd.sandinosanchez.connectionpool.pool.ConnectionPool;
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
 import com.solvd.sandinosanchez.connectionpool.dao.IFollowerDao;
 import com.solvd.sandinosanchez.connectionpool.models.Follower;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.solvd.sandinosanchez.connectionpool.models.Follower.initializeFollower;
 
 public class FollowerDao extends AbstractDao implements IFollowerDao {
     private static final Logger LOGGER = Logger.getLogger(FollowerDao.class);
@@ -23,7 +19,7 @@ public class FollowerDao extends AbstractDao implements IFollowerDao {
     private static final String UPDATE_BY_ID = "UPDATE Followers SET ? = ? WHERE id = ?";
 
     @Override
-    public List<? extends Follower> getAll() {
+    public List<Follower> getAll() {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
             ResultSet rs = ce.executeQuery(GET_ALL);
             List<Follower> followers = new ArrayList<>();
@@ -67,8 +63,14 @@ public class FollowerDao extends AbstractDao implements IFollowerDao {
         }
     }
 
+    public static Follower initializeFollower(ResultSet rs) throws SQLException {
+        return new Follower(rs.getLong("id"),
+                rs.getDate("followed_date"));
+    }
+
+
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 }

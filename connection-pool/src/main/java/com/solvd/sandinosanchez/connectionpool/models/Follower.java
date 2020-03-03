@@ -1,13 +1,11 @@
 package com.solvd.sandinosanchez.connectionpool.models;
 
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Follower extends BaseModel {
 
-    private Long user;
-    private Long follower;
+    private User user;
+    private User follower;
     private Date followedDate;
 
     public Follower(){}
@@ -17,16 +15,6 @@ public class Follower extends BaseModel {
         this.followedDate = followedDate;
     }
 
-    public static Follower initializeFollower(ResultSet rs) throws SQLException {
-        return new Follower(rs.getLong("id"),
-                rs.getDate("followed_date"));
-    }
-
-//    public static Follower initializeFollowers(ResultSet rs) throws SQLException {
-//        followers.add(initializeFollower(rs));
-//        return followers;
-//    }
-
     public Date getFollowedDate() {
         return followedDate;
     }
@@ -35,19 +23,19 @@ public class Follower extends BaseModel {
         this.followedDate = followedDate;
     }
 
-    public Long getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Long user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public Long getFollower() {
+    public User getFollower() {
         return follower;
     }
 
-    public void setFollower(Long follower) {
+    public void setFollower(User follower) {
         this.follower = follower;
     }
 }

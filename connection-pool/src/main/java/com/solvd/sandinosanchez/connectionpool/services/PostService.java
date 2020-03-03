@@ -37,6 +37,10 @@ public class PostService {
         return posts;
     }
 
+    public int save() {
+        return 0;
+    }
+
     private void initializePost(Post post) {
         post.setLikes(likeDao.getAllByPostId(post.getId()));
         post.setComments(commentDao.getAllByPostId(post.getId()));

@@ -72,7 +72,7 @@ public class PostDao extends AbstractDao implements IPostDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 

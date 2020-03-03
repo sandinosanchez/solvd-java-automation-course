@@ -65,7 +65,7 @@ public class MessageDao extends AbstractDao implements IMessageDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 

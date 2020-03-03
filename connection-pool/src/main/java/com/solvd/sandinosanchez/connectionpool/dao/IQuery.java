@@ -14,5 +14,5 @@ public interface IQuery<T> {
 
     void updateById(long id, String column, String value);
 
-    void insert(Statement query);
+    void save(Statement query);
 }

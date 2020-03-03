@@ -74,7 +74,7 @@ public class CommentDao extends AbstractDao implements ICommentDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 

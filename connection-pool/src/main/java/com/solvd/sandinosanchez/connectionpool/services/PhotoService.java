@@ -22,7 +22,7 @@ public class PhotoService {
 
     public Photo getById(long id) {
         Photo photo = photoDao.getById(id);
-        photo.setTags(tagDao.getAllByPhotoId(photo.getId()));
+        photo.setTags(photoDao.getAllByPhotoId(photo.getId()));
         return photo;
     }
 

@@ -81,7 +81,7 @@ public class LikeDao extends AbstractDao implements ILikeDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 

@@ -15,10 +15,10 @@ public class Main {
     private static final int AMOUNT_OF_THREADS = 50;
 
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-        for (int i = 0; i < AMOUNT_OF_THREADS ; i++)
-            executor.execute(new App());
-        executor.shutdown();
+//        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+//        for (int i = 0; i < AMOUNT_OF_THREADS ; i++)
+//            executor.execute(new App());
+//        executor.shutdown();
 
 //        List<Thread> threads = new ArrayList<>();
 //        App app = new App();
@@ -28,6 +28,8 @@ public class Main {
 //        }
 //
 //        threads.forEach(Thread::start);
+
+
 
     }
 }

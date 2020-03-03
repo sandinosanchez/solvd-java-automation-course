@@ -3,6 +3,8 @@ package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
 import com.solvd.sandinosanchez.connectionpool.dao.IPhotoDao;
 import com.solvd.sandinosanchez.connectionpool.models.Photo;
+import com.solvd.sandinosanchez.connectionpool.models.Tag;
+import com.solvd.sandinosanchez.connectionpool.models.User;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
 
@@ -21,7 +23,7 @@ public class PhotoDao extends AbstractDao implements IPhotoDao {
 
 
     @Override
-    public List<? extends Photo> getAll() {
+    public List<Photo> getAll() {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
             ResultSet rs = ce.executeQuery(GET_ALL);
             List<Photo> photos = new ArrayList<>();
@@ -66,11 +68,12 @@ public class PhotoDao extends AbstractDao implements IPhotoDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 
     public static Photo initializePhoto(ResultSet rs) throws SQLException {
         return new Photo(rs.getLong("id"), rs.getString("file_url"));
     }
+
 }
