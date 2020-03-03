@@ -3,12 +3,14 @@ package com.solvd.sandinosanchez.connectionpool.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement(name = "Post")
 public class Post extends BaseModel {
     @JsonProperty("DateCreated")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -25,11 +27,12 @@ public class Post extends BaseModel {
         this.dateCreated = dateCreated;
         this.description = description;
         this.likes = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
-    public Post(long id, Date date_created, String description, Photo photo) {
+    public Post(long id, Date dateCreated, String description, Photo photo) {
         super(id);
-        this.dateCreated = date_created;
+        this.dateCreated = dateCreated;
         this.description = description;
         this.photo = photo;
         this.comments = new ArrayList<>();

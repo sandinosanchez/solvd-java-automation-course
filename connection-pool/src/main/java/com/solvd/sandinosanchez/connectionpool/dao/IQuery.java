@@ -1,7 +1,5 @@
 package com.solvd.sandinosanchez.connectionpool.dao;
 
-import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-
 import java.sql.Statement;
 import java.util.List;
 

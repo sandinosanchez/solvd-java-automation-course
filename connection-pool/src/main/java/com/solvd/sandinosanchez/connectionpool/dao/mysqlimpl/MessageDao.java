@@ -20,7 +20,7 @@ public class MessageDao extends AbstractDao implements IMessageDao {
     private static final String DELETE_BY_ID = "DELETE FROM Messages WHERE id = ?";
 
     @Override
-    public List<? extends Message> getAll() {
+    public List<Message> getAll() {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
             ResultSet rs = ce.executeQuery(GET_ALL);
             List<Message> messages = new ArrayList<>();

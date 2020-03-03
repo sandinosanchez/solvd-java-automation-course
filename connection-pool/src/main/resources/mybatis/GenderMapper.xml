@@ -11,14 +11,19 @@
         <![CDATA[INSERT INTO Genders(name) VALUES (#{name})]]>
     </insert>
     <update id="updateById">
-        <![CDATA[UPDATE Genders
-        <set>
-            <if test="firstName != null">firstName=#{firstName},</if>
-        </set>
-        ]]]>
+        <![CDATA[UPDATE Genders SET name = #{name} WHERE id = #{id}]]>
     </update>
     <delete id="deleteById">
-        <![CDATA[DELETE FROM Genders WHERE id = #{id}]]]>
+        <![CDATA[DELETE FROM Genders WHERE id = #{id}]]>
     </delete>
-
+    <sql id="getGenderTemplate">
+        <![CDATA[SELECT id as id, name as name FROM Genders]]>
+    </sql>
+    <select id="getById">
+        <include refid="getGenderTemplate"/>
+        <![CDATA[WHERE id = #{id}]]>
+    </select>
+    <select id="getAll">
+        <include refid="getGenderTemplate"/>
+    </select>
 </mapper>

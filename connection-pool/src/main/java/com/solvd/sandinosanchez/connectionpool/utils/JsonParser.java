@@ -2,17 +2,14 @@ package com.solvd.sandinosanchez.connectionpool.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.solvd.sandinosanchez.connectionpool.models.BaseModel;
 import org.apache.log4j.Logger;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.*;
 import java.util.List;
 
-public class Parsers {
-    private static final Logger LOGGER = Logger.getLogger(Parsers.class);
+public class JsonParser {
+    private static final Logger LOGGER = Logger.getLogger(JsonParser.class);
     private static final String PATH_TO_JSON_OUTPUT = "src/main/resources/jsonOutput.json";
     private static final String PATH_TO_JSON_INPUT = "src/main/resources/jsonInput.json";
     private static final String PATH_TO_XML_OUTPUT = "src/main/resources/xmlOutput.xml";

@@ -47,7 +47,7 @@ public class CommentDao extends AbstractDao implements ICommentDao {
     }
 
     @Override
-    public List<? extends Comment> getAll() {
+    public List<Comment> getAll() {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
             ResultSet rs =  ce.executeQuery(GET_ALL);
             List<Comment> comments = new ArrayList<>();

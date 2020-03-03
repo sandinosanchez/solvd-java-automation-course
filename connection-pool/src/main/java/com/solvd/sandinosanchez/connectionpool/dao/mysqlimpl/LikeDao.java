@@ -33,7 +33,7 @@ public class LikeDao extends AbstractDao implements ILikeDao {
     }
 
     @Override
-    public List<? extends Like> getAll() {
+    public List<Like> getAll() {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
             ResultSet rs = ce.executeQuery(GET_ALL);
             List<Like> likes = new ArrayList<>();

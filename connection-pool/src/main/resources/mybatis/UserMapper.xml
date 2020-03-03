@@ -20,19 +20,33 @@
     <resultMap id="PostResult" type="Post">
         <id property="id" column="post_id"/>
         <result property="dateCreated" column="dateCreated" />
-        <result property=""></result>
+        <result property=""/>
     </resultMap>
     <resultMap id="FollowerResult" type="Follower">
-
     </resultMap>
     <resultMap id="DirectMessageResult" type="DirectMessage">
-
     </resultMap>
-
-    <select id="getById" resultType="User">
-
+    <sql id="getUserTemplate">
+        <![CDATA[
+            SELECT u.id as id,
+                   u.email as email,
+                   u.password as password,
+                   u.first_name as fistName,
+                   u.last_name as lastName,
+                   u.gender_id as gender_id,
+            FROM Users u
+        ]]>
+    </sql>
+    <select id="getById" resultMap="UserMap">
+        <include refid="getUserTemplate"/>
+        <![CDATA[
+            LEFT JOIN Genders g on u.gender_id = g.id
+            WHERE u.id = #{id}
+        ]]>
     </select>
-
+    <select id="getAll" resultMap="UserMap">
+        <include refid="getUserTemplate"/>
+    </select>
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
         <![CDATA[INSERT INTO Users(firstName, lastName, email,
            password, gender_id) VALUES (#{firstName},#{lastName},#{email},
@@ -43,10 +57,10 @@
         <set>
             <if test="firstName != null">firstName=#{firstName},</if>
         </set>
-        ]]]>
+        ]]>
     </update>
 
     <delete id="deleteById">
-        <![CDATA[DELETE FROM Users WHERE id = #{id}]]]>
+        <![CDATA[DELETE FROM Users WHERE id = #{id}]]>
     </delete>
 </mapper>

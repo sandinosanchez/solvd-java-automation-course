@@ -32,7 +32,7 @@ public class GenderDao extends AbstractDao implements IGenderDao {
     }
 
     @Override
-    public List<? extends Gender> getAll() {
+    public List<Gender> getAll() {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
             ResultSet rs = ce.executeQuery(GET_ALL);
             List<Gender> genders = new ArrayList<>();

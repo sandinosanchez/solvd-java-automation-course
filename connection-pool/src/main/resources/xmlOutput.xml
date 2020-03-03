@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Users>
+    <User>
+        <id>1</id>
+        <email>sandino@gmail.com</email>
+        <firstName>Sandino</firstName>
+        <gender>
+            <id>1</id>
+            <name>Male</name>
+        </gender>
+        <lastName>Sanchez</lastName>
+        <posts>
+            <id>1</id>
+            <description>some description</description>
+        </posts>
+        <posts>
+            <id>2</id>
+            <description>another description</description>
+        </posts>
+    </User>
+    <User>
+        <id>2</id>
+        <email>eduardo@gmail.com</email>
+        <firstName>Eduardo</firstName>
+        <lastName>Sanchez</lastName>
+        <gender>
+            <id>1</id>
+            <name>Male</name>
+        </gender>
+        <posts>
+            <id>3</id>
+            <description>some description</description>
+        </posts>
+        <posts>
+            <id>4</id>
+            <description>another description</description>
+        </posts>
+    </User>
+</Users>
+
+

@@ -1,10 +1,15 @@
 package com.solvd.sandinosanchez.connectionpool.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Date;
 
+@XmlRootElement(name = "follower")
 public class Follower extends BaseModel {
 
     private User user;
+    @JsonProperty("Follower")
     private User follower;
     private Date followedDate;
 
