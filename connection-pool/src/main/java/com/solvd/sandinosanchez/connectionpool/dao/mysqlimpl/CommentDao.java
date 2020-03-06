@@ -16,6 +16,7 @@ public class CommentDao extends AbstractDao implements ICommentDao {
     private static final Logger LOGGER = Logger.getLogger(CommentDao.class);
     private static final String GET_ALL = "SELECT * FROM Comments";
     private static final String GET_BY_ID = "SELECT * FROM Comments WHERE id = ?";
+    private static final String GET_ALL_BY_POST_ID = "SELECT * FROM Comments WHERE post_id = ?";
     private static final String DELETE_BY_ID = "DELETE FROM Comments WHERE id = ?";
     private static final String UPDATE_BY_ID  = "UPDATE Comments SET ? = ? WHERE id = ?";
 
@@ -64,5 +65,22 @@ public class CommentDao extends AbstractDao implements ICommentDao {
 
     public Comment initializeComment(ResultSet rs) throws SQLException {
         return new Comment(rs.getLong("id"), rs.getString("comment"));
+    }
+
+    @Override
+    public List<Comment> getCommentsByPostId(long id) {
+        try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
+            ResultSet rs = ce.executeQuery(GET_ALL_BY_POST_ID, id);
+            List<Comment> comments = new ArrayList<>();
+            if (rs.next()) {
+                while (rs.next()) comments.add(initializeComment(rs));
+                return comments;
+            } else {
+                throw new SQLException("Not found");
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return null;
     }
 }

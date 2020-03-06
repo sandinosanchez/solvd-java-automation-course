@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         for (int i = 0; i < AMOUNT_OF_THREADS ; i++)
-            executor.execute(new App());
+            executor.submit(App::new);
         executor.shutdown();
 
 //        List<Thread> threads = new ArrayList<>();

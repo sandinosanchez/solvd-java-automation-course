@@ -4,4 +4,6 @@ import com.solvd.sandinosanchez.connectionpool.models.Photo;
 
 public interface IPhotoDao extends IQuery<Photo> {
 
+    Photo getPhotoByPostId(long id);
+
 }
