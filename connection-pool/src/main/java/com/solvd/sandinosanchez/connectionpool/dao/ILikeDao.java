@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface ILikeDao extends IQuery<Like> {
 
+<<<<<<< HEAD
     List<Like> getLikesByPostId(long id);
+=======
+    List<Like> getAllByPostId(long id);
+>>>>>>> 6f2746a38ec765cca33fc53e5f24be71c90be632
 
 }

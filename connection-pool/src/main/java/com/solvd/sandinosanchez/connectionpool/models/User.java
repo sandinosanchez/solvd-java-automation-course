@@ -1,17 +1,23 @@
 package com.solvd.sandinosanchez.connectionpool.models;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement(name = "User")
 public class User extends BaseModel {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private Gender gender;
     private List<Post> posts;
     private List<Follower> followers;
     private List<DirectMessage> directMessages;
+
+    @XmlTransient
+    private String password;
 
 
     public User(){

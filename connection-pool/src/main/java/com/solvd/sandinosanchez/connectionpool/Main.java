@@ -1,12 +1,13 @@
 package com.solvd.sandinosanchez.connectionpool;
 
+import com.solvd.sandinosanchez.connectionpool.models.Comment;
+import com.solvd.sandinosanchez.connectionpool.models.Post;
+import com.solvd.sandinosanchez.connectionpool.models.User;
 import com.solvd.sandinosanchez.connectionpool.pool.App;
+import com.solvd.sandinosanchez.connectionpool.utils.DomXmlParser;
+import com.solvd.sandinosanchez.connectionpool.utils.JaxBXmlParser;
 import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,10 +17,10 @@ public class Main {
     private static final int AMOUNT_OF_THREADS = 50;
 
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-        for (int i = 0; i < AMOUNT_OF_THREADS ; i++)
-            executor.submit(App::new);
-        executor.shutdown();
+//        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+//        for (int i = 0; i < AMOUNT_OF_THREADS ; i++)
+//            executor.execute(new App());
+//        executor.shutdown();
 
 //        List<Thread> threads = new ArrayList<>();
 //        App app = new App();
@@ -30,5 +31,6 @@ public class Main {
 //
 //        threads.forEach(Thread::start);
 
+        LOGGER.info(Objects.requireNonNull(JaxBXmlParser.deSerialize(User.class)).toString());
     }
 }

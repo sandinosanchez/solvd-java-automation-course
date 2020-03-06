@@ -47,6 +47,7 @@ public class XmlDomParser {
         } catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 }

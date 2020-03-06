@@ -84,7 +84,7 @@ public class DirectMessageDao extends AbstractDao implements IDirectMessageDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 

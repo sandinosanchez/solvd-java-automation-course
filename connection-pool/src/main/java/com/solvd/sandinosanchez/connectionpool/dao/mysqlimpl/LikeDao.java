@@ -34,9 +34,24 @@ public class LikeDao extends AbstractDao implements ILikeDao {
     }
 
     @Override
-    public List<? extends Like> getAll() {
+    public List<Like> getAll() {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
             ResultSet rs = ce.executeQuery(GET_ALL);
+            List<Like> likes = new ArrayList<>();
+            if (rs.next()) {
+                while (rs.next()) likes.add(initializeLike(rs));
+                return likes;
+            } else throw new SQLException("Not found");
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Like> getAllByPostId(long id) {
+        try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
+            ResultSet rs = ce.executeQuery(GET_ALL_BY_POST_ID, id);
             List<Like> likes = new ArrayList<>();
             if (rs.next()) {
                 while (rs.next()) likes.add(initializeLike(rs));
@@ -67,7 +82,7 @@ public class LikeDao extends AbstractDao implements ILikeDao {
     }
 
     @Override
-    public void insert(Statement query) {
+    public void save(Statement query) {
 
     }
 

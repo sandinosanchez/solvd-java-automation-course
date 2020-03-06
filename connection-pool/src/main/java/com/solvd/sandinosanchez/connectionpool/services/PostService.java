@@ -5,8 +5,11 @@ import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.CommentDao;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.LikeDao;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.PhotoDao;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.PostDao;
+import com.solvd.sandinosanchez.connectionpool.models.Like;
 import com.solvd.sandinosanchez.connectionpool.models.Photo;
 import com.solvd.sandinosanchez.connectionpool.models.Post;
+
+import java.util.List;
 
 public class PostService {
     private IPostDao postDao;
@@ -21,9 +24,26 @@ public class PostService {
         this.photoDao = new PhotoDao();
     }
 
-    public Post getPost(long id) {
+    public Post getById(long id) {
         Post post = postDao.getById(id);
-        return null;
+        post.setLikes(likeDao.getAllByPostId(post.getId()));
+        post.setComments(commentDao.getAllByPostId(post.getId()));
+        return post;
+    }
+
+    public List<Post> getAll() {
+        List<Post> posts = postDao.getAll();
+        posts.forEach(this::initializePost);
+        return posts;
+    }
+
+    public int save() {
+        return 0;
+    }
+
+    private void initializePost(Post post) {
+        post.setLikes(likeDao.getAllByPostId(post.getId()));
+        post.setComments(commentDao.getAllByPostId(post.getId()));
     }
 
     public ICommentDao getCommentDao() {
