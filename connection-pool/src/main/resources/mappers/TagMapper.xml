@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.ITagDao">
+    <sql id="getTagTemplate">
+        <![CDATA[
+            SELECT  T.ID AS TAG_ID,
+                    T.USER_ID AS USER_ID,
+                    T.PHOTO_ID AS PHOTO_ID,
+                    T.DATE_TAGGED AS DATE_TAGGED,
+                    U.FIRST_NAME AS USER_FIRST_NAME,
+                    U.LAST_NAME AS USER_LAST_NAME,
+                    U.EMAIL AS USER_EMAIL,
+                    U.GENDER_ID AS USER_GENDER_ID
+                    PH.FILE_URL AS PHOTO_FILE_URL
+            FROM
+                social_network.TAGS T
+            LEFT JOIN
+                social_network.USERS U
+                    ON T.USER_ID = U.ID
+            LEFT JOIN
+                social_network.PHOTOS PH
+                    ON T.PHOTO_ID = PH.ID
+        ]]>
+    </sql>
+
+    <select id="getById">
+        <include refid="getTagTemplate"/>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </select>
+
+    <select id="getAll">
+        <include refid="getTagTemplate"/>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[INSERT INTO social_network.TAGS (USER_ID, PHOTO_ID, DATE_TAGGED)
+                 VALUES (
+                    #{userId},
+                    #{photoId},
+                    #(dateTagged}
+                 )
+        ]]>
+    </insert>
+
+    <update id="updateById">
+        <![CDATA[UPDATE
+                    social_network.TAGS
+        ]]>
+        <set>
+            <if test="dateTagged != null">
+                DATE_TAGGED = #{dateTagged}
+            </if>
+        </set>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </update>
+
+    <delete id="deleteById">
+        <![CDATA[
+            DELETE FROM social_network.TAGS
+            WHERE ID = #{id}
+        ]]>
+    </delete>
+
+    <resultMap id="TagMap" autoMapping="false" type="Tag">
+        <id property="id" column="TAG_ID"/>
+        <result property="dateCreated" column="DATE_TAGGED"/>
+        <association property="userTagged" column="USER_ID" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IUserDao.UserMapper"/>
+        <association property="photo" column="PHOTO_ID" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IPhotoDao.PhotoMapper"/>
+    </resultMap>
+</mapper>

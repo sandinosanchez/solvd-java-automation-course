@@ -42,9 +42,9 @@ public class UserDao extends AbstractDao implements IUserDao {
     }
 
     @Override
-    public User getByName(String name) {
+    public User getByName(String firstName) {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
-            ResultSet rs = ce.executeQuery(GET_BY_NAME, name);
+            ResultSet rs = ce.executeQuery(GET_BY_NAME, firstName);
             if (rs.next()) return initializeUser(rs);
         } catch (SQLException e) {
             LOGGER.error(e);

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.IPhotoDao">
+    <sql id="getPhotoTemplate">
+        SELECT  PH.ID AS PHOTO_ID,
+                PH.FILE_URL AS PHOTO_URL,
+                T.USER_ID AS USER_TAGGED,
+                T.DATE_TAGGED AS DATE_TAGGED
+        FROM
+            social_network.PHOTOS PH
+        LEFT JOIN
+            social_network.TAGS T
+                ON PH.ID = T.PHOTO_ID
+    </sql>
+
+    <select id="getById" resultMap="PhotoMap">
+        <include refid="getPhotoTemplate"/>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </select>
+
+    <select id="getAll" resultMap="UserMap">
+        <include refid="getPhotoTemplate"/>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[INSERT INTO social_network.PHOTOS (FILE_URL)
+                 VALUES ( #{fileUrl} )
+        ]]>
+    </insert>
+
+    <update id="updateById">
+        <![CDATA[UPDATE
+                    social_network.PHOTOS
+        ]]>
+        <set>
+            <if test="fileUrl != null">
+                <![CDATA[
+                       FILE_URL = #{fileUrl},
+                    ]]>
+            </if>
+        </set>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </update>
+
+    <delete id="delete">
+        <![CDATA[
+            DELETE FROM social_network.PHOTOS
+            WHERE ID = #{id}
+        ]]>
+    </delete>
+
+    <resultMap id="PostMap" autoMapping="false" type="Photo">
+        <id property="id" column="PHOTO_ID"/>
+        <result property="url" column="PHOTO_URL"/>
+        <result property="dateCreated" column="PHOTO_URL"/>
+        <collection property="tags" ofType="Tag" resultMap="com.solvd.sandinosanchez.connectionpool.dao.ITagDao.TagMapper"/>
+    </resultMap>
+</mapper>

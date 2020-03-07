@@ -16,6 +16,7 @@ public class Post extends BaseModel {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateCreated;
     private String description;
+    private User user;
     private Photo photo;
     private List<Like> likes;
     private List<Comment> comments;
@@ -26,12 +27,14 @@ public class Post extends BaseModel {
         super(id);
         this.dateCreated = dateCreated;
         this.description = description;
+        this.user = new User();
         this.likes = new ArrayList<>();
         this.comments = new ArrayList<>();
     }
 
-    public Post(long id, Date dateCreated, String description, Photo photo) {
+    public Post(long id, Date dateCreated, String description, Photo photo, User user) {
         super(id);
+        this.user = user;
         this.dateCreated = dateCreated;
         this.description = description;
         this.photo = photo;
@@ -86,5 +89,13 @@ public class Post extends BaseModel {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

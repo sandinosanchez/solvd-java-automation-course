@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.IDirectMessageDao">
+    <sql id="getDirectMessageTemplate">
+        <![CDATA[
+            SELECT F.ID AS FOLLOWER_ID,
+                   F.USER_ID AS USER_ID,
+                   F.FOLLOWER_ID AS USER_FOLLOWER_ID,
+                   F.FOLLOWED_DATE AS FOLLOWED_DATE,
+                   U.FIRST_NAME AS USER_FIRST_NAME,
+                   U.LAST_NAME AS USER_LAST_NAME,
+                   U.EMAIL AS USER_EMAIL
+            FROM
+                social_network.DIRECT_MESSAGES DM
+            LEFT JOIN
+                social_network.MESSAGES M
+                    ON U.GENDER_ID = G.ID
+            LEFT JOIN
+                social_network.USERS U
+                    ON U.ID = P.USER_ID
+        ]]>
+    </sql>
+
+    <select id="getById" resultMap="UserMap">
+        <include refid="getUserTemplate"/>
+        <![CDATA[
+            WHERE U.ID = #{id}
+        ]]>
+    </select>
+    <select id="getByName" resultMap="UserMap">
+        <include refid="getUserTemplate"/>
+        <![CDATA[
+            WHERE U.FIRST_NAME = #{firstName}
+        ]]>
+    </select>
+    <select id="getAll" resultMap="UserMap">
+        <include refid="getUserTemplate"/>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[INSERT INTO social_network.USERS (EMAIL, PASSWORD , FIRST_NAME,LAST_NAME, GENDER_ID)
+                 VALUES (
+                     #{firstName},
+                     #{lastName},
+                     #{email},
+                     #{password},
+                     #{gender_id}
+                 )
+        ]]>
+    </insert>
+
+    <update id="updateById">
+        <![CDATA[UPDATE
+                    social_network.USERS
+        ]]>
+        <set>
+            <if test="firstName != null">
+                <![CDATA[
+                       FIRST_NAME = #{firstName},
+                    ]]>
+            </if>
+            <if test="lastName != null">
+                <![CDATA[
+                       LAST_NAME = #{lastName},
+                    ]]>
+            </if>
+            <if test="email != null">
+                <![CDATA[
+                       EMAIL = #{email},
+                    ]]>
+            </if>
+            <if test="password != null">
+                <![CDATA[
+                       PASSWORD = #{password}
+                    ]]>
+            </if>
+        </set>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </update>
+
+    <delete id="delete">
+        <![CDATA[
+            DELETE FROM social_network.USERS
+            WHERE ID = #{id}
+        ]]>
+    </delete>
+
+    <resultMap id="UserMap" autoMapping="false" type="User">
+        <id property="id" column="USER_ID"/>
+        <result property="firstName" column="USER_FIRST_NAME"/>
+        <result property="lastName" column="USER_LAST_NAME"/>
+        <result property="email" column="USER_EMAIL"/>
+        <association property="gender" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IGenderDao.GenderMap"/>
+        <collection property="posts" ofType="Post" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IPostDao.PostMap" columnPrefix="POST_"/>
+        <collection property="followers" ofType="Follower" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IFollowerDao.FollowerMap" columnPrefix="FOLLOWER_"/>
+        <collection property="directMessages" ofType="DirectMessage" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IDirectMessageDao.DirectMessageMap" columnPrefix="DM_"/>
+    </resultMap>
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.IFollowerDao">
+    <sql id="getFollowerTemplate">
+        <![CDATA[
+            SELECT F.ID AS FOLLOWER_ID,
+                   F.USER_ID AS USER_ID,
+                   F.FOLLOWER_ID AS USER_FOLLOWER_ID,
+                   F.FOLLOWED_DATE AS FOLLOWED_DATE,
+                   U.FIRST_NAME AS USER_FIRST_NAME,
+                   U.LAST_NAME AS USER_LAST_NAME,
+                   U.EMAIL AS USER_EMAIL
+
+            FROM
+                social_network.FOLLOWERS F
+            LEFT JOIN
+                social_network.USERS U
+                    ON F.FOLLOWER_ID = U.ID
+
+        ]]>
+    </sql>
+
+    <select id="getById" resultMap="FollowerMap">
+        <include refid="getFollowerTemplate"/>
+        <![CDATA[
+            WHERE F.USER_ID = #{id}
+        ]]>
+    </select>
+    <select id="getAll" resultMap="FollowerTemplate">
+        <include refid="getFollowerTemplate"/>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[INSERT INTO social_network.FOLLOWERS (USER_ID, FOLLOWER_ID, FOLLOWED_DATE)
+                 VALUES (
+                     #{userId},
+                     #{followerId},
+                     #{followedDate}
+                 )
+        ]]>
+    </insert>
+
+    <update id="updateById">
+        <![CDATA[UPDATE
+                    social_network.FOLLOWERS
+        ]]>
+        <set>
+            <if test="followedDate != null">
+                <![CDATA[
+                       FOLLOWED_DATE = #{followedDate}
+                    ]]>
+            </if>
+        </set>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </update>
+
+    <delete id="delete">
+        <![CDATA[
+            DELETE FROM social_network.FOLLOWERS
+            WHERE ID = #{id}
+        ]]>
+    </delete>
+
+    <resultMap id="FollowerMap" autoMapping="false" type="Follower">
+        <id property="id" column="FOLLOWER_ID"/>
+        <result property="followedDate" column="FOLLOWED_DATE"/>
+        <association property="user" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IUserDao.UserMapper"/>
+        <association property="follower" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IFollowerDao.FollowerMapper"/>
+    </resultMap>
+</mapper>

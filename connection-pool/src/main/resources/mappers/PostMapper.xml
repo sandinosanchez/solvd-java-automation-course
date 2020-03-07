@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.IPostDao">
+    <sql id="getPostTemplate">
+        SELECT  P.ID AS POST_ID,
+                P.DATE_CREATED AS POST_DATE_CREATED,
+                P.USER_ID AS POST_USER_ID,
+                P.DESCRIPTION AS POST_DESCRIPTION,
+                C.ID AS COMMENT_ID,
+                C.COMMENT AS COMMENT_TEXT,
+                L.ID AS LIKE_ID,
+                L.DATE_LIKED AS LIKE_DATE_LIKED,
+                L.USER_ID AS LIKE_USER_ID,
+                PH.ID AS PHOTO_ID,
+                PH.FILE_URL AS PHOTO_FILE_URL
+        FROM
+            social_network.POSTS P
+        LEFT JOIN
+            social_network.LIKES L
+                ON P.ID = L.POST_ID
+        LEFT JOIN
+            social_network.COMMENTS C
+                ON P.ID = C.POST_ID
+        LEFT JOIN
+            social_network.PHOTOS PH
+                ON P.PHOTO_ID = PH.ID;
+    </sql>
+
+    <select id="getById" resultMap="UserMap">
+        <include refid="getPostTemplate"/>
+        <![CDATA[
+            WHERE P.ID = #{id}
+        ]]>
+    </select>
+
+    <select id="getAll" resultMap="UserMap">
+        <include refid="getPostTemplate"/>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[INSERT INTO social_network.POSTS (DATE_CREATED, USER_ID, DESCRIPTION, PHOTO_ID)
+                 VALUES (
+                    #{dateCreated},
+                    #{userId},
+                    #{description},
+                    #{photoId}
+                 )
+        ]]>
+    </insert>
+
+    <update id="updateById">
+        <![CDATA[UPDATE
+                    social_network.POSTS
+        ]]>
+        <set>
+            <if test="dateCreated != null">
+                <![CDATA[
+                       DATE_CREATED = #{dateCreated},
+                    ]]>
+            </if>
+            <if test="description != null">
+                <![CDATA[
+                       DESCRIPTION = #{description},
+                    ]]>
+            </if>
+        </set>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </update>
+
+    <delete id="delete">
+        <![CDATA[
+            DELETE FROM social_network.POSTS
+            WHERE ID = #{id}
+        ]]>
+    </delete>
+
+    <resultMap id="PostMap" autoMapping="false" type="Post">
+        <id property="id" column="POST_ID"/>
+        <result property="dateCreated" column="POST_DATE_CREATED"/>
+        <result property="description" column="POST_DESCRIPTION"/>
+        <association property="photo" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IPhotoDao.PhotoMapper"/>
+        <association property="user" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IUserDao.UserMapper"/>
+    </resultMap>
+</mapper>
