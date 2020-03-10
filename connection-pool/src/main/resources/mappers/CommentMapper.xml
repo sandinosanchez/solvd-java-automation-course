@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.CommentMapper">
+    <sql id="getCommentTemplate">
+        <![CDATA[
+            SELECT  C.ID AS COMMENT_ID,
+                    C.TEXT AS COMMENT,
+                    P.ID AS POST_ID
+            FROM
+                social_network.COMMENTS C
+
+        ]]>
+    </sql>
+
+    <select id="getById" resultMap="CommentMap">
+        <include refid="getCommentTemplate"/>
+        <![CDATA[
+            WHERE U.ID = #{id}
+        ]]>
+    </select>
+    <select id="getAll" resultMap="CommentMap">
+        <include refid="getCommentTemplate"/>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[INSERT INTO social_network.USERS (COMMENT)
+                 VALUES (
+                     #{comment}
+                 )
+        ]]>
+    </insert>
+
+    <update id="updateById">
+        <![CDATA[UPDATE
+                    social_network.USERS
+        ]]>
+        <set>
+            <if test="firstName != null">
+                <![CDATA[
+                       FIRST_NAME = #{firstName},
+                    ]]>
+            </if>
+            <if test="lastName != null">
+                <![CDATA[
+                       LAST_NAME = #{lastName},
+                    ]]>
+            </if>
+            <if test="email != null">
+                <![CDATA[
+                       EMAIL = #{email},
+                    ]]>
+            </if>
+            <if test="password != null">
+                <![CDATA[
+                       PASSWORD = #{password}
+                    ]]>
+            </if>
+        </set>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </update>
+
+    <delete id="delete">
+        <![CDATA[
+            DELETE FROM social_network.COMMENTS
+            WHERE ID = #{id}
+        ]]>
+    </delete>
+
+    <resultMap id="CommentMap" autoMapping="false" type="Comment">
+        <id property="id" column="COMMENT_ID"/>
+        <result property="comment" column="COMMENT"/>
+    </resultMap>
+</mapper>

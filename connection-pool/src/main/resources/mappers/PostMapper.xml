@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.PostMapper">
+    <sql id="getPostTemplate">
+        SELECT  P.ID AS POST_ID,
+                P.DATE_CREATED AS POST_DATE_CREATED,
+                P.USER_ID AS POST_USER_ID,
+                P.DESCRIPTION AS POST_DESCRIPTION,
+                C.ID AS COMMENT_ID,
+                C.TEXT AS COMMENT
+
+        FROM
+            social_network.POSTS P
+        LEFT JOIN
+            social_network.COMMENTS C
+                ON P.ID = C.POST_ID
+    </sql>
+
+    <select id="getById" resultMap="PostMap">
+        <include refid="getPostTemplate"/>
+        <![CDATA[
+            WHERE P.ID = #{id}
+        ]]>
+    </select>
+
+    <select id="getAll" resultMap="PostMap">
+        <include refid="getPostTemplate"/>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[INSERT INTO social_network.POSTS (DATE_CREATED, USER_ID, DESCRIPTION)
+                 VALUES (
+                    #{dateCreated},
+                    #{userId},
+                    #{description}
+                 )
+        ]]>
+    </insert>
+
+    <update id="updateById">
+        <![CDATA[UPDATE
+                    social_network.POSTS
+        ]]>
+        <set>
+            <if test="dateCreated != null">
+                <![CDATA[
+                       DATE_CREATED = #{dateCreated},
+                    ]]>
+            </if>
+            <if test="description != null">
+                <![CDATA[
+                       DESCRIPTION = #{description},
+                    ]]>
+            </if>
+        </set>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </update>
+
+    <delete id="delete">
+        <![CDATA[
+            DELETE FROM social_network.POSTS
+            WHERE ID = #{id}
+        ]]>
+    </delete>
+
+    <resultMap id="PostMap" autoMapping="false" type="Post">
+        <id property="id" column="POST_ID"/>
+        <result property="dateCreated" column="POST_DATE_CREATED"/>
+        <result property="description" column="POST_DESCRIPTION"/>
+        <association property="photo"
+                     column="POST_ID"
+                     javaType="Photo"
+                     select="com.solvd.sandinosanchez.connectionpool.dao.PhotoMapper.getByPostId"/>
+        <collection property="comments" ofType="Comment" resultMap="com.solvd.sandinosanchez.connectionpool.dao.CommentMapper.CommentMap"/>
+
+    </resultMap>
+</mapper>

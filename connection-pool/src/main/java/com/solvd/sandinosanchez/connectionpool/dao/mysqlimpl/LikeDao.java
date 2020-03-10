@@ -1,8 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.ILikeDao;
-import com.solvd.sandinosanchez.connectionpool.models.Comment;
+import com.solvd.sandinosanchez.connectionpool.dao.LikeMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Like;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
@@ -13,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LikeDao extends AbstractDao implements ILikeDao {
+public class LikeDao extends AbstractDao implements LikeMapper {
     private static final Logger LOGGER = Logger.getLogger(LikeDao.class);
     private static final String GET_ALL = "SELECT * FROM Likes";
     private static final String GET_BY_ID = "SELECT * FROM Likes WHERE id = ?";
@@ -84,23 +83,6 @@ public class LikeDao extends AbstractDao implements ILikeDao {
     @Override
     public void save(Statement query) {
 
-    }
-
-    @Override
-    public List<Like> getLikesByPostId(long id) {
-        try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
-            ResultSet rs = ce.executeQuery(GET_ALL_BY_POST_ID, id);
-            List<Like> likes = new ArrayList<>();
-            if (rs.next()) {
-                while (rs.next()) likes.add(initializeLike(rs));
-                return likes;
-            } else {
-                throw new SQLException("Not found");
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
-        return null;
     }
 
     private Like initializeLike(ResultSet rs) throws SQLException  {

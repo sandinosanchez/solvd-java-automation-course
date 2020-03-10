@@ -6,7 +6,7 @@ import com.solvd.sandinosanchez.connectionpool.models.User;
 import java.sql.Date;
 import java.util.List;
 
-public interface IDirectMessageDao extends IQuery<DirectMessage> {
+public interface DirectMessageMapper extends IQuery<DirectMessage> {
 
     DirectMessage getDirectMessageFrom(User user);
 

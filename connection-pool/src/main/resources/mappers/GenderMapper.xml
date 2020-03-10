@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.GenderMapper">
+    <sql id="getGenderTemplate">
+        <![CDATA[
+            SELECT  ID AS GENDER_ID,
+                    NAME AS GENDER_NAME
+            FROM
+                social_network.GENDERS
+        ]]>
+    </sql>
+
+    <select id="getAll" resultMap="GenderMap">
+        <include refid="getGenderTemplate"/>
+    </select>
+
+    <select id="getById" resultMap="GenderMap">
+        <include refid="getGenderTemplate"/>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </select>
+
+    <select id="getByName" resultMap="GenderMap">
+        <include refid="getGenderTemplate"/>
+        <![CDATA[
+            WHERE NAME = #{name}
+        ]]>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[INSERT INTO social_network.GENDERS (NAME)
+                 VALUES (
+                    #{name}
+                 )
+        ]]>
+    </insert>
+
+    <update id="updateById">
+        <![CDATA[UPDATE
+                    social_network.GENDERS
+        ]]>
+        <set>
+            <if test="name != null">
+                NAME = #{name}
+            </if>
+        </set>
+        <![CDATA[
+            WHERE ID = #{id}
+        ]]>
+    </update>
+
+    <delete id="deleteById">
+        <![CDATA[
+            DELETE FROM social_network.GENDERS
+            WHERE id = #{id}
+        ]]>
+    </delete>
+
+    <resultMap id="GenderMap" autoMapping="false" type="Gender">
+        <id property="id" column="GENDER_ID"/>
+        <result property="name" column="GENDER_NAME"/>
+    </resultMap>
+</mapper>

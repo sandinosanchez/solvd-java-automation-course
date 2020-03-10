@@ -27,4 +27,11 @@ public class Comment extends BaseModel {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "comment='" + comment + '\'' +
+                '}';
+    }
 }

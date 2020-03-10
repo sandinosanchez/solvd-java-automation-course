@@ -3,7 +3,7 @@ package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import com.solvd.sandinosanchez.connectionpool.pool.ConnectionPool;
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.IPostDao;
+import com.solvd.sandinosanchez.connectionpool.dao.PostMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Post;
 import org.apache.log4j.Logger;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostDao extends AbstractDao implements IPostDao {
+public class PostDao extends AbstractDao implements PostMapper {
     private static final Logger LOGGER = Logger.getLogger(PostDao.class);
     private static final String GET_ALL = "SELECT * FROM Posts";
     private static final String GET_BY_ID = "SELECT * FROM Posts WHERE id = ?";

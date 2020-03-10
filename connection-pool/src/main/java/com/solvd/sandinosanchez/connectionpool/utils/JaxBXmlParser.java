@@ -1,6 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.utils;
 
 import com.solvd.sandinosanchez.connectionpool.models.BaseModel;
+import com.solvd.sandinosanchez.connectionpool.models.User;
 import org.apache.log4j.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -9,17 +10,18 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public class JaxBXmlParser {
     private static final Logger LOGGER = Logger.getLogger(JaxBXmlParser.class);
     private static final String PATH_TO_XML_OUTPUT = "src/main/resources/xmlOutput.xml";
     private static final String PATH_TO_XML_INPUT = "src/main/resources/xmlInput.xml";
 
-    public static void serialize(BaseModel model) {
+    public static void serialize(JaxBList<? extends BaseModel> models, Class<? extends BaseModel> classType) {
         try {
-            Marshaller marshaller = JAXBContext.newInstance(model.getClass()).createMarshaller();
+            Marshaller marshaller = JAXBContext.newInstance(classType).createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(model, new File(PATH_TO_XML_OUTPUT));
+            marshaller.marshal(models, new File(PATH_TO_XML_OUTPUT));
         } catch (JAXBException e) {
             LOGGER.error(e);
         }

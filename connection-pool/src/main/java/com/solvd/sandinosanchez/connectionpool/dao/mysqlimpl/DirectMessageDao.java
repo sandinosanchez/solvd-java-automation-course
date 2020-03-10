@@ -3,7 +3,7 @@ package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import com.solvd.sandinosanchez.connectionpool.pool.ConnectionPool;
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.IDirectMessageDao;
+import com.solvd.sandinosanchez.connectionpool.dao.DirectMessageMapper;
 import com.solvd.sandinosanchez.connectionpool.models.DirectMessage;
 import com.solvd.sandinosanchez.connectionpool.models.User;
 import org.apache.log4j.Logger;
@@ -14,7 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DirectMessageDao extends AbstractDao implements IDirectMessageDao {
+public class DirectMessageDao extends AbstractDao implements DirectMessageMapper {
     private static final Logger LOGGER = Logger.getLogger(DirectMessageDao.class);
     private static final String GET_ALL = "SELECT * FROM DirectMessages";
     private static final String GET_BY_ID = "SELECT * FROM DirectMessages WHERE id = ?";

@@ -1,7 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.ICommentDao;
+import com.solvd.sandinosanchez.connectionpool.dao.CommentMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Comment;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
@@ -12,12 +12,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentDao extends AbstractDao implements ICommentDao {
+public class CommentDao extends AbstractDao implements CommentMapper {
     private static final Logger LOGGER = Logger.getLogger(CommentDao.class);
     private static final String GET_ALL = "SELECT * FROM Comments";
     private static final String GET_ALL_BY_POST_ID = "SELECT * FROM Comments WHERE post_id = ?";
     private static final String GET_BY_ID = "SELECT * FROM Comments WHERE id = ?";
-    private static final String GET_ALL_BY_POST_ID = "SELECT * FROM Comments WHERE post_id = ?";
     private static final String DELETE_BY_ID = "DELETE FROM Comments WHERE id = ?";
     private static final String UPDATE_BY_ID  = "UPDATE Comments SET ? = ? WHERE id = ?";
 
@@ -83,20 +82,4 @@ public class CommentDao extends AbstractDao implements ICommentDao {
         return new Comment(rs.getLong("id"), rs.getString("comment"));
     }
 
-    @Override
-    public List<Comment> getCommentsByPostId(long id) {
-        try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
-            ResultSet rs = ce.executeQuery(GET_ALL_BY_POST_ID, id);
-            List<Comment> comments = new ArrayList<>();
-            if (rs.next()) {
-                while (rs.next()) comments.add(initializeComment(rs));
-                return comments;
-            } else {
-                throw new SQLException("Not found");
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
-        return null;
-    }
 }

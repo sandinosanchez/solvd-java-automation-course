@@ -14,7 +14,7 @@ public class App implements Runnable {
 
     @Override
     public void run() {
-        JaxBXmlParser.serialize((new UserDao().getById(1)));
+//        JaxBXmlParser.serialize((new UserDao().getById(1)));
 //        User user = new UserDao().getById(1);
 //        LOGGER.info(user.toString());
 //        List<BaseModel> users = deSerialize(User.class);

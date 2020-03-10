@@ -3,19 +3,22 @@ package com.solvd.sandinosanchez.connectionpool.models;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "User")
+@XmlType(propOrder = {"firstName", "lastName", "email", "password", "gender", "posts", "directMessages", "followers"})
 public class User extends BaseModel {
     private String firstName;
     private String lastName;
     private String email;
     private Gender gender;
     private List<Post> posts;
+    @XmlTransient
     private List<Follower> followers;
+    @XmlTransient
     private List<DirectMessage> directMessages;
-
     @XmlTransient
     private String password;
 
@@ -122,10 +125,7 @@ public class User extends BaseModel {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", gender=" + gender +
-                ", posts=" + posts +
-                ", followers=" + followers +
-                ", directMessages=" + directMessages +
-                ", id=" + super.getId() +
+                ", posts=" + posts.toString() +
                 '}';
     }
 }

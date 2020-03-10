@@ -4,12 +4,12 @@ import com.solvd.sandinosanchez.connectionpool.models.*;
 import com.solvd.sandinosanchez.connectionpool.pool.ConnectionPool;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.IUserDao;
+import com.solvd.sandinosanchez.connectionpool.dao.UserMapper;
 import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.*;
 
-public class UserDao extends AbstractDao implements IUserDao {
+public class UserDao extends AbstractDao implements UserMapper {
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
     private static final String GET_ALL = "SELECT * FROM Users";
     private static final String GET_BY_ID = "SELECT * FROM Users WHERE id = ?";
@@ -42,9 +42,9 @@ public class UserDao extends AbstractDao implements IUserDao {
     }
 
     @Override
-    public User getByName(String name) {
+    public User getByName(String firstName) {
         try (ClosableEntity ce = new ClosableEntity(getConnectionPool().getConnection())) {
-            ResultSet rs = ce.executeQuery(GET_BY_NAME, name);
+            ResultSet rs = ce.executeQuery(GET_BY_NAME, firstName);
             if (rs.next()) return initializeUser(rs);
         } catch (SQLException e) {
             LOGGER.error(e);

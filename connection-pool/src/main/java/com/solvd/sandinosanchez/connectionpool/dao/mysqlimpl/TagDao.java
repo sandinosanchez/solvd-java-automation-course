@@ -1,9 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.IQuery;
-import com.solvd.sandinosanchez.connectionpool.dao.ITagDao;
-import com.solvd.sandinosanchez.connectionpool.models.Post;
+import com.solvd.sandinosanchez.connectionpool.dao.TagMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Tag;
 import com.solvd.sandinosanchez.connectionpool.pool.ConnectionPool;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
@@ -15,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TagDao extends AbstractDao implements ITagDao {
+public class TagDao extends AbstractDao implements TagMapper {
     private static final Logger LOGGER = Logger.getLogger(TagDao.class);
     private static final String GET_ALL = "SELECT * FROM Tags";
     private static final String GET_BY_ID = "SELECT * FROM Tags WHERE id = ?";
