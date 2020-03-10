@@ -1,7 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.ICommentDao;
+import com.solvd.sandinosanchez.connectionpool.dao.CommentMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Comment;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentDao extends AbstractDao implements ICommentDao {
+public class CommentDao extends AbstractDao implements CommentMapper {
     private static final Logger LOGGER = Logger.getLogger(CommentDao.class);
     private static final String GET_ALL = "SELECT * FROM Comments";
     private static final String GET_ALL_BY_POST_ID = "SELECT * FROM Comments WHERE post_id = ?";

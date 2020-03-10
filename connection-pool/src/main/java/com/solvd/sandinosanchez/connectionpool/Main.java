@@ -1,11 +1,14 @@
 package com.solvd.sandinosanchez.connectionpool;
 
+import com.solvd.sandinosanchez.connectionpool.dao.UserMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Comment;
 import com.solvd.sandinosanchez.connectionpool.models.Post;
 import com.solvd.sandinosanchez.connectionpool.models.User;
 import com.solvd.sandinosanchez.connectionpool.pool.App;
+import com.solvd.sandinosanchez.connectionpool.utils.ConnectionFactory;
 import com.solvd.sandinosanchez.connectionpool.utils.DomXmlParser;
 import com.solvd.sandinosanchez.connectionpool.utils.JaxBXmlParser;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
 import java.sql.Date;
@@ -33,6 +36,11 @@ public class Main {
 //
 //        threads.forEach(Thread::start);
 
-        LOGGER.info(Objects.requireNonNull(JaxBXmlParser.deSerialize(User.class)).toString());
+        try (SqlSession session = ConnectionFactory.getSqlSessionFactory().openSession(true)) {
+            UserMapper userMapper = session.getMapper(UserMapper.class);
+            System.out.println(userMapper.getById(1).toString());
+        }
+
+//        LOGGER.info(Objects.requireNonNull(JaxBXmlParser.deSerialize(User.class)).toString());
     }
 }

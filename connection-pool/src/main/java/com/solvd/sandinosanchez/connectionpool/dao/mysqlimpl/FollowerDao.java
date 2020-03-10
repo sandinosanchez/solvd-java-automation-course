@@ -1,7 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.IFollowerDao;
+import com.solvd.sandinosanchez.connectionpool.dao.FollowerMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Follower;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FollowerDao extends AbstractDao implements IFollowerDao {
+public class FollowerDao extends AbstractDao implements FollowerMapper {
     private static final Logger LOGGER = Logger.getLogger(FollowerDao.class);
     private static final String GET_ALL = "SELECT * FROM Followers";
     private static final String GET_BY_ID = "SELECT * FROM Followers WHERE id = ?";

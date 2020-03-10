@@ -1,7 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.ILikeDao;
+import com.solvd.sandinosanchez.connectionpool.dao.LikeMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Like;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LikeDao extends AbstractDao implements ILikeDao {
+public class LikeDao extends AbstractDao implements LikeMapper {
     private static final Logger LOGGER = Logger.getLogger(LikeDao.class);
     private static final String GET_ALL = "SELECT * FROM Likes";
     private static final String GET_BY_ID = "SELECT * FROM Likes WHERE id = ?";

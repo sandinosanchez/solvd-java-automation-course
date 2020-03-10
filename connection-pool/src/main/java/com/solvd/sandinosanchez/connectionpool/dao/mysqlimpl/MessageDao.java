@@ -1,7 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.IMessageDao;
+import com.solvd.sandinosanchez.connectionpool.dao.MessageMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Message;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageDao extends AbstractDao implements IMessageDao {
+public class MessageDao extends AbstractDao implements MessageMapper {
     private static final Logger LOGGER = Logger.getLogger(MessageDao.class);
     private static final String GET_ALL = "SELECT * FROM Messages";
     private static final String GET_BY_ID = "SELECT * FROM Messages WHERE id = ?";

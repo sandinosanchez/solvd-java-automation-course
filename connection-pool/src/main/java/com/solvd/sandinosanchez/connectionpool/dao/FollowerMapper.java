@@ -4,6 +4,6 @@ import com.solvd.sandinosanchez.connectionpool.models.Follower;
 
 import java.util.List;
 
-public interface IFollowerDao extends IQuery<Follower> {
+public interface FollowerMapper extends IQuery<Follower> {
 
 }

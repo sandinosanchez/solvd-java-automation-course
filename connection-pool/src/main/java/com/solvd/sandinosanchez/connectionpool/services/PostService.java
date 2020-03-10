@@ -5,17 +5,15 @@ import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.CommentDao;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.LikeDao;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.PhotoDao;
 import com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl.PostDao;
-import com.solvd.sandinosanchez.connectionpool.models.Like;
-import com.solvd.sandinosanchez.connectionpool.models.Photo;
 import com.solvd.sandinosanchez.connectionpool.models.Post;
 
 import java.util.List;
 
 public class PostService {
-    private IPostDao postDao;
-    private ICommentDao commentDao;
-    private ILikeDao likeDao;
-    private IPhotoDao photoDao;
+    private PostMapper postDao;
+    private CommentMapper commentDao;
+    private LikeMapper likeDao;
+    private PhotoMapper photoDao;
 
     public PostService() {
         this.commentDao = new CommentDao();
@@ -46,7 +44,7 @@ public class PostService {
         post.setComments(commentDao.getAllByPostId(post.getId()));
     }
 
-    public ICommentDao getCommentDao() {
+    public CommentMapper getCommentDao() {
         return commentDao;
     }
 
@@ -54,7 +52,7 @@ public class PostService {
         this.commentDao = commentDao;
     }
 
-    public ILikeDao getLikeDao() {
+    public LikeMapper getLikeDao() {
         return likeDao;
     }
 
@@ -62,19 +60,19 @@ public class PostService {
         this.likeDao = likeDao;
     }
 
-    public IPostDao getPostDao() {
+    public PostMapper getPostDao() {
         return postDao;
     }
 
-    public void setPostDao(IPostDao postDao) {
+    public void setPostDao(PostMapper postDao) {
         this.postDao = postDao;
     }
 
-    public IPhotoDao getPhotoDao() {
+    public PhotoMapper getPhotoDao() {
         return photoDao;
     }
 
-    public void setPhotoDao(IPhotoDao photoDao) {
+    public void setPhotoDao(PhotoMapper photoDao) {
         this.photoDao = photoDao;
     }
 }

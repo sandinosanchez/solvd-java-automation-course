@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.ITagDao">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.TagMapper">
     <sql id="getTagTemplate">
         <![CDATA[
             SELECT  T.ID AS TAG_ID,
@@ -70,7 +70,7 @@
     <resultMap id="TagMap" autoMapping="false" type="Tag">
         <id property="id" column="TAG_ID"/>
         <result property="dateCreated" column="DATE_TAGGED"/>
-        <association property="userTagged" column="USER_ID" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IUserDao.UserMapper"/>
-        <association property="photo" column="PHOTO_ID" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IPhotoDao.PhotoMapper"/>
+        <association property="userTagged" column="USER_ID" resultMap="com.solvd.sandinosanchez.connectionpool.dao.UserMapper.UserMapper"/>
+        <association property="photo" column="PHOTO_ID" resultMap="com.solvd.sandinosanchez.connectionpool.dao.PhotoMapper.PhotoMapper"/>
     </resultMap>
 </mapper>

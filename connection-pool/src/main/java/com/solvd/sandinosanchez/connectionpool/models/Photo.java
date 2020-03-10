@@ -9,11 +9,7 @@ public class Photo extends BaseModel {
 
     public Photo() {}
 
-    public Photo(String url) {
-        this.url = url;
-    }
-
-    public Photo(Long id, String url) {
+    public Photo(long id, String url) {
         super(id);
         this.url = url;
         this.tags = new ArrayList<>();
@@ -37,5 +33,12 @@ public class Photo extends BaseModel {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "url='" + url + '\'' +
+                '}';
     }
 }

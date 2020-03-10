@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.IFollowerDao">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.FollowerMapper">
     <sql id="getFollowerTemplate">
         <![CDATA[
             SELECT F.ID AS FOLLOWER_ID,
@@ -28,7 +28,7 @@
             WHERE F.USER_ID = #{id}
         ]]>
     </select>
-    <select id="getAll" resultMap="FollowerTemplate">
+    <select id="getAll" resultMap="FollowerMap">
         <include refid="getFollowerTemplate"/>
     </select>
 
@@ -68,7 +68,7 @@
     <resultMap id="FollowerMap" autoMapping="false" type="Follower">
         <id property="id" column="FOLLOWER_ID"/>
         <result property="followedDate" column="FOLLOWED_DATE"/>
-        <association property="user" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IUserDao.UserMapper"/>
-        <association property="follower" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IFollowerDao.FollowerMapper"/>
+        <association property="user" resultMap="com.solvd.sandinosanchez.connectionpool.dao.UserMapper.UserMapper"/>
+        <association property="follower" resultMap="com.solvd.sandinosanchez.connectionpool.dao.UserMapper.SimpleUserMap"/>
     </resultMap>
 </mapper>

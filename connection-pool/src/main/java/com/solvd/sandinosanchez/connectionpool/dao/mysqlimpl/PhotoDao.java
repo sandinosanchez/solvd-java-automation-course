@@ -1,10 +1,8 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.IPhotoDao;
+import com.solvd.sandinosanchez.connectionpool.dao.PhotoMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Photo;
-import com.solvd.sandinosanchez.connectionpool.models.Tag;
-import com.solvd.sandinosanchez.connectionpool.models.User;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
 
@@ -14,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhotoDao extends AbstractDao implements IPhotoDao {
+public class PhotoDao extends AbstractDao implements PhotoMapper {
     private static final Logger LOGGER = Logger.getLogger(PhotoDao.class);
     private static final String GET_ALL = "SELECT * FROM Photos";
     private static final String GET_BY_ID = "SELECT * FROM Photos WHERE id = ?";
@@ -34,6 +32,12 @@ public class PhotoDao extends AbstractDao implements IPhotoDao {
         } catch (SQLException e) {
             LOGGER.error(e);
         }
+        return null;
+    }
+
+
+    @Override
+    public Photo getByPostId(long id) {
         return null;
     }
 
@@ -75,5 +79,4 @@ public class PhotoDao extends AbstractDao implements IPhotoDao {
     public static Photo initializePhoto(ResultSet rs) throws SQLException {
         return new Photo(rs.getLong("id"), rs.getString("file_url"));
     }
-
 }

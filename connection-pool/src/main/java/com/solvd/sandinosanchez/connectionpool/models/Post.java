@@ -57,16 +57,6 @@ public class Post extends BaseModel {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "dateCreated=" + dateCreated +
-                ", description='" + description + '\'' +
-                ", photo=" + photo +
-                ", id=" + getId() +
-                '}';
-    }
-
     public void addLike(Like like) {
         this.likes.add(like);
     }
@@ -97,5 +87,15 @@ public class Post extends BaseModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "dateCreated=" + dateCreated +
+                ", description='" + description + '\'' +
+                ", photo=" + photo.toString() +
+                ", id=" + getId() +
+                '}';
     }
 }

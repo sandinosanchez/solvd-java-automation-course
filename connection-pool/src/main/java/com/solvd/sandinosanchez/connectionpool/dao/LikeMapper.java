@@ -4,7 +4,7 @@ import com.solvd.sandinosanchez.connectionpool.models.Like;
 
 import java.util.List;
 
-public interface ILikeDao extends IQuery<Like> {
+public interface LikeMapper extends IQuery<Like> {
 
     List<Like> getAllByPostId(long id);
 

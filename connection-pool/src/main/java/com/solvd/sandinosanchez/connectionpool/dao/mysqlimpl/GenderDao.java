@@ -1,7 +1,7 @@
 package com.solvd.sandinosanchez.connectionpool.dao.mysqlimpl;
 
 import com.solvd.sandinosanchez.connectionpool.dao.AbstractDao;
-import com.solvd.sandinosanchez.connectionpool.dao.IGenderDao;
+import com.solvd.sandinosanchez.connectionpool.dao.GenderMapper;
 import com.solvd.sandinosanchez.connectionpool.models.Gender;
 import com.solvd.sandinosanchez.connectionpool.utils.ClosableEntity;
 import org.apache.log4j.Logger;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenderDao extends AbstractDao implements IGenderDao {
+public class GenderDao extends AbstractDao implements GenderMapper {
     private static final Logger LOGGER = Logger.getLogger(GenderDao.class);
     private static final String GET_ALL = "SELECT * FROM Genders";
     private static final String GET_BY_ID = "SELECT * FROM Genders WHERE id = ?";

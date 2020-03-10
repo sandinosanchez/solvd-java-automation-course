@@ -5,7 +5,7 @@ import com.solvd.sandinosanchez.connectionpool.models.Tag;
 
 import java.util.List;
 
-public interface ITagDao extends IQuery<Tag> {
+public interface TagMapper extends IQuery<Tag> {
     PhotoDao getPhotoWithMostTags();
 
     PhotoDao getPhotoWithLessTags();

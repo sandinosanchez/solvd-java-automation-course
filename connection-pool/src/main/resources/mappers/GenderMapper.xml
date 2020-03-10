@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.ITagDao">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.GenderMapper">
     <sql id="getGenderTemplate">
         <![CDATA[
             SELECT  ID AS GENDER_ID,
@@ -12,18 +12,18 @@
         ]]>
     </sql>
 
-    <select id="getAll">
+    <select id="getAll" resultMap="GenderMap">
         <include refid="getGenderTemplate"/>
     </select>
 
-    <select id="getById">
+    <select id="getById" resultMap="GenderMap">
         <include refid="getGenderTemplate"/>
         <![CDATA[
             WHERE ID = #{id}
         ]]>
     </select>
 
-    <select id="getByName">
+    <select id="getByName" resultMap="GenderMap">
         <include refid="getGenderTemplate"/>
         <![CDATA[
             WHERE NAME = #{name}
@@ -59,7 +59,7 @@
         ]]>
     </delete>
 
-    <resultMap id="GenderMap" autoMapping="false" type="Tag">
+    <resultMap id="GenderMap" autoMapping="false" type="Gender">
         <id property="id" column="GENDER_ID"/>
         <result property="name" column="GENDER_NAME"/>
     </resultMap>

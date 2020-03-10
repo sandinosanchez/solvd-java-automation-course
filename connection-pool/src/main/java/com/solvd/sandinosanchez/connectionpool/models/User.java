@@ -122,10 +122,7 @@ public class User extends BaseModel {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", gender=" + gender +
-                ", posts=" + posts +
-                ", followers=" + followers +
-                ", directMessages=" + directMessages +
-                ", id=" + super.getId() +
+                ", posts=" + posts.toString() +
                 '}';
     }
 }

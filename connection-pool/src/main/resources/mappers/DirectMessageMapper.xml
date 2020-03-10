@@ -2,24 +2,22 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.IDirectMessageDao">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.DirectMessageMapper">
     <sql id="getDirectMessageTemplate">
         <![CDATA[
-            SELECT F.ID AS FOLLOWER_ID,
-                   F.USER_ID AS USER_ID,
-                   F.FOLLOWER_ID AS USER_FOLLOWER_ID,
-                   F.FOLLOWED_DATE AS FOLLOWED_DATE,
-                   U.FIRST_NAME AS USER_FIRST_NAME,
-                   U.LAST_NAME AS USER_LAST_NAME,
-                   U.EMAIL AS USER_EMAIL
+            SELECT DM.ID AS DM_ID,
+                   DM.RECEIVER_ID AS RECEIVER_USER_ID,
+                   DM.SENDER_ID AS SENDER_USER_ID,
+                   DM.DATE_CREATED AS DM_DATE_CREATED,
+                   M.ID AS MESSAGE_ID,
+                   M.MESSAGE AS MESSAGE,
+                   M.DATE_CREATED AS MESSAGE_DATE_CREATED,
+                   M.DIRECT_MESSAGE_ID AS MESSAGE_DM_ID
             FROM
                 social_network.DIRECT_MESSAGES DM
             LEFT JOIN
                 social_network.MESSAGES M
-                    ON U.GENDER_ID = G.ID
-            LEFT JOIN
-                social_network.USERS U
-                    ON U.ID = P.USER_ID
+                    ON DM.ID = M.DIRECT_MESSAGE_ID
         ]]>
     </sql>
 
@@ -94,9 +92,9 @@
         <result property="firstName" column="USER_FIRST_NAME"/>
         <result property="lastName" column="USER_LAST_NAME"/>
         <result property="email" column="USER_EMAIL"/>
-        <association property="gender" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IGenderDao.GenderMap"/>
-        <collection property="posts" ofType="Post" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IPostDao.PostMap" columnPrefix="POST_"/>
-        <collection property="followers" ofType="Follower" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IFollowerDao.FollowerMap" columnPrefix="FOLLOWER_"/>
-        <collection property="directMessages" ofType="DirectMessage" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IDirectMessageDao.DirectMessageMap" columnPrefix="DM_"/>
+        <association property="gender" resultMap="com.solvd.sandinosanchez.connectionpool.dao.GenderMapper.GenderMap"/>
+        <collection property="posts" ofType="Post" resultMap="com.solvd.sandinosanchez.connectionpool.dao.PostMapper.PostMap" columnPrefix="POST_"/>
+        <collection property="followers" ofType="Follower" resultMap="com.solvd.sandinosanchez.connectionpool.dao.FollowerMapper.FollowerMap" columnPrefix="FOLLOWER_"/>
+        <collection property="directMessages" ofType="DirectMessage" resultMap="com.solvd.sandinosanchez.connectionpool.dao.DirectMessageMapper.DirectMessageMap" columnPrefix="DM_"/>
     </resultMap>
 </mapper>

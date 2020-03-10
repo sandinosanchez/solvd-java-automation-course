@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.IUserDao">
+<mapper namespace="com.solvd.sandinosanchez.connectionpool.dao.UserMapper">
     <sql id="getUserTemplate">
         <![CDATA[
             SELECT U.ID as USER_ID,
@@ -10,30 +10,16 @@
                    U.PASSWORD as USER_PASSWORD,
                    U.FIRST_NAME as USER_FIRST_NAME,
                    U.LAST_NAME as USER_LAST_NAME,
-                   G.ID AS GENDER_ID,
-                   G.NAME as GENDER_NAME,
+                   U.GENDER_ID AS GENDER_ID,
                    P.ID as POST_ID,
                    P.DATE_CREATED as POST_CREATED_AT,
-                   P.DESCRIPTION as POST_DESCRIPTION,
-                   F.FOLLOWER_ID as FOLLOWER_ID,
-                   F.FOLLOWED_DATE as FOLLOWED_SINCE,
-                   DM.ID AS DM_ID,
-                   DM.DATE_CREATED as DM_CREATED_AT,
-                   DM.SENDER_ID as DM_FROM_USER_ID
+                   P.DESCRIPTION as POST_DESCRIPTION
             FROM
                 social_network.USERS U
             LEFT JOIN
-                social_network.GENDERS G
-                    ON U.GENDER_ID = G.ID
-            LEFT JOIN
                 social_network.POSTS P
                     ON U.ID = P.USER_ID
-            LEFT JOIN
-                social_network.FOLLOWERS F
-                    ON U.ID = F.USER_ID
-            LEFT JOIN
-                social_network.DIRECT_MESSAGES DM
-                    ON U.ID = DM.RECEIVER_ID;
+
         ]]>
     </sql>
 
@@ -108,9 +94,16 @@
         <result property="firstName" column="USER_FIRST_NAME"/>
         <result property="lastName" column="USER_LAST_NAME"/>
         <result property="email" column="USER_EMAIL"/>
-        <association property="gender" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IGenderDao.GenderMap"/>
-        <collection property="posts" ofType="Post" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IPostDao.PostMap" columnPrefix="POST_"/>
-        <collection property="followers" ofType="Follower" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IFollowerDao.FollowerMap" columnPrefix="FOLLOWER_"/>
-        <collection property="directMessages" ofType="DirectMessage" resultMap="com.solvd.sandinosanchez.connectionpool.dao.IDirectMessageDao.DirectMessageMap" columnPrefix="DM_"/>
+        <association property="gender"
+                     column="GENDER_ID"
+                     javaType="Gender"
+                     select="com.solvd.sandinosanchez.connectionpool.dao.GenderMapper.getById"/>
+        <collection property="posts" ofType="Post" resultMap="com.solvd.sandinosanchez.connectionpool.dao.PostMapper.PostMap"/>
+    </resultMap>
+    <resultMap id="SimpleUserMap" autoMapping="false" type="User">
+        <id property="id" column="USER_ID"/>
+        <result property="firstName" column="USER_FIRST_NAME"/>
+        <result property="lastName" column="USER_LAST_NAME"/>
+        <result property="email" column="USER_EMAIL"/>
     </resultMap>
 </mapper>
